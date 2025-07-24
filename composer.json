@@ -1,0 +1,12 @@
+{
+    "name": "maksym/newbestcare",
+    "description": "newbestcare for Roswell Goris",
+    "require": {
+        "endroid/qr-code": "^4.3",
+        "guzzlehttp/guzzle": "^7.0",
+        "nategood/httpful": "^1.0",
+        "phpmailer/phpmailer": "^6.9",
+        "2captcha/2captcha": "^1.2",
+        "dompdf/dompdf": "^3.1"
+    }
+}
