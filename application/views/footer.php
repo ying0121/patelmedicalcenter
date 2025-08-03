@@ -565,11 +565,7 @@
     $(document).ready(function() {
         // time table
         $("#timetable").css('height', 0);
-
-        // Select
-        $("#select-input-elanguage").parent().parent().children().eq(1).addClass("d-none")
-        $("#select-input-egender").parent().parent().children().eq(1).addClass("d-none")
-
+        
         needPopup.init();
 
         // Get the computed style of the nav-bar

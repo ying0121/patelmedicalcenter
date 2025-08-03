@@ -278,7 +278,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-3 mb-4">
-                            <div class="form-outline" data-mdb-input-init>
+                            <div class="form-outline" data-mdb-input-init data-mdb-input-initialized="true">
                                 <input type="text" id="epatient_id" class="form-control" />
                                 <label class="form-label" for="epatient_id"><?php echo $component_text["t_contact_option_patient"] ?> ID</label>
                             </div>
@@ -346,12 +346,11 @@
                             </div>
                         </div>
 
-                        <div class="col-md-2 mb-4">
-                            <select id="egender" data-mdb-select-init>
+                        <div class="col-md-2 mb-4" data-mdb-select-init class="form-outline">
+                            <select id="egender" class="form-select">
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
-                            <label class="form-label select-label">Gender</label>
                         </div>
                         <div class="col-md-3 mb-4">
                             <div class="form-outline" data-mdb-input-init>
@@ -359,8 +358,8 @@
                                 <label class="form-label" for="edob"><?php echo $component_text["placeholder_dob"] ?></label>
                             </div>
                         </div>
-                        <div class="col-md-3 mb-4">
-                            <select id='elanguage' data-mdb-select-init>
+                        <div class="col-md-3 mb-4" data-mdb-select-init class="form-outline">
+                            <select id='elanguage' class="form-select">
                                 <?php for ($i = 0; $i < count($languages); $i++): ?>
                                     <option value="<?php echo $languages[$i]['code'] ?>"><?php echo $languages[$i]['English'] ?></option>
                                 <?php endfor ?>
