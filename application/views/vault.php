@@ -48,15 +48,15 @@
             <!-- Tabs navs -->
             <ul class="nav nav-tabs mb-3" id="ex-with-icons" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a data-mdb-tab-init class="nav-link active fs-6" id="ex-with-icons-tab-1" href="#ex-with-icons-tabs-1" role="tab"
+                    <a data-mdb-tab-init data-mdb-toggle="tab" class="nav-link active fs-6" id="ex-with-icons-tab-1" href="#ex-with-icons-tabs-1" role="tab"
                         aria-controls="ex-with-icons-tabs-1" aria-selected="true"><i class="fa fa-envelope"></i> <?php echo $component_text['v_inbox'] ?></a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a data-mdb-tab-init class="nav-link fs-6" id="ex-with-icons-tab-2" href="#ex-with-icons-tabs-2" role="tab"
+                    <a data-mdb-tab-init data-mdb-toggle="tab" class="nav-link fs-6" id="ex-with-icons-tab-2" href="#ex-with-icons-tabs-2" role="tab"
                         aria-controls="ex-with-icons-tabs-2" aria-selected="false"><i class="fa fa-file-signature"></i> <?php echo $component_text['v_compose'] ?></a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a data-mdb-tab-init class="nav-link fs-6" id="ex-with-icons-tab-3" href="#ex-with-icons-tabs-3" role="tab"
+                    <a data-mdb-tab-init data-mdb-toggle="tab" class="nav-link fs-6" id="ex-with-icons-tab-3" href="#ex-with-icons-tabs-3" role="tab"
                         aria-controls="ex-with-icons-tabs-3" aria-selected="false"><i class="fa fa-file"></i> <?php echo $component_text['v_document'] ?></a>
                 </li>
             </ul>
@@ -275,6 +275,17 @@
         }
 
         $(document).ready(function() {
+            $(function () {
+                $('.nav-link').on('click', function () {
+                    // Tab Items
+                    $(".nav-link").removeClass("active")
+                    $(this).addClass("active")
+                    // Tab Content
+                    $(".tab-pane").removeClass("fade show active")
+                    $($(this).attr('href')).addClass("fade show active")
+                });
+            });
+
             let inbox_table = $('#inbox_table').DataTable({
                 'pagingType': 'full_numbers',
                 'order': [
