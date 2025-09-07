@@ -665,7 +665,6 @@ class PtLogin extends CI_Controller
                             'email_header' => $signup_content['en']['t_pa_su_eheader'],
                             'disclaimer' => $emailaccount_content['en']['t_pa_ea_disclaimer'],
                         );
-                        error_log(json_encode($mail_body));
                         $html = $this->load->view('email/accountemail.php', $mail_body, TRUE);
                         $this->email->subject('Case #: ' . $case_number  . $acronym . ' patelmedicalcenter.com - PT Area Account Request');
                         $this->email->message($html);

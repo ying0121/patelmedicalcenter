@@ -305,8 +305,9 @@
                 tabsize: 1,
                 height: 150,
             });
-            //$('#email_list').tagsinput();
-            //$('#phone_list').tagsinput();
+            $('#email_list').tagsinput();
+            $('#phone_list').tagsinput();
+            
             let surveytable = $('#survey_tb').DataTable({
                 "pagingType": "full_numbers",
                 "lengthMenu": [

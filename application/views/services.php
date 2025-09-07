@@ -28,9 +28,9 @@
                                 <div class="mask">
                                     <div class="d-flex justify-content-end align-items-center h-25 px-3">
                                         <?php if ($services[$i]["cost"] > 0): ?>
-                                            <span class="badge badge-danger fs-6">$ <?php echo $services[$i]["cost"]; ?></span>
+                                            <span class="badge <?php if ($services[$i]["status"] == 0) echo "bg-secondary"; else echo "badge-danger"; ?> fs-6">$ <?php echo $services[$i]["cost"]; ?></span>
                                         <?php else: ?>
-                                            <span class="badge badge-success fs-6">FREE</span>
+                                            <span class="badge <?php if ($services[$i]["status"] == 0) echo "bg-secondary"; else echo "badge-success"; ?> fs-6">FREE</span>
                                         <?php endif ?>
                                     </div>
                                 </div>
@@ -39,7 +39,7 @@
                                 <h5 class="card-title"><?php echo $services[$i]["title"]; ?></h5>
                                 <p class="card-text"><?php echo $services[$i]["short_desc"]; ?></p>
                             </div>
-                            <div class="card-footer d-flex justify-content-around align-items-center">
+                            <div class="card-footer d-flex justify-content-around align-items-center <?php if ($services[$i]["status"] == 0) echo "bg-secondary"; ?>">
                                 <button data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#payment-modal" class="d-none" id="show-service-payment-modal-btn"></button>
                                 <button data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#service_request_modal" class="d-none" id="show-service-modal-btn"></button>
                                 <a href="javascript:;" class="text-primary service_request fs-5" data-id="<?php echo $services[$i]['id']; ?>" data-title="<?php echo $services[$i]['title']; ?>"><?php echo $component_text['t_request'] ?></a>

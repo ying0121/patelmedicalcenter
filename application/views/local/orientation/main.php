@@ -76,102 +76,102 @@
         <?php include('doc_edit_modal.php'); ?>
         <?php include('doc_upload_modal.php'); ?>
         <script>
-        $(document).ready(function(){
-            let doctable = $('#doc_tb').DataTable({
-                "pagingType": "full_numbers",
-                "lengthMenu": [
-                    [10, 25, 50, -1],
-                    [10, 25, 50, "All"]
-                ],
-                responsive: true,
-                language: {
-                    search: "_INPUT_",
-                    searchPlaceholder: "Search records",
-                },
-                "ajax": {
-                    "url": "<?php echo base_url() ?>local/Orientation/read",
-                    "type": "GET"
-                },
-                "columns": [
-                    { data: 'id' },
-                    { data: 'en_title' },
-                    { data: 'es_title'},
-                    { data: 'en_doc',
-                        render: function (data, type, row) {
-                            if(row.en_doc != null)
-                                return `
-                            <a href="<?php echo base_url() ?>assets/documents/${row.en_doc}" target="_blank">${row.en_doc}</a>
-                            `
-                            else
-                                return "";
-                        }
+            $(document).ready(function(){
+                let doctable = $('#doc_tb').DataTable({
+                    "pagingType": "full_numbers",
+                    "lengthMenu": [
+                        [10, 25, 50, -1],
+                        [10, 25, 50, "All"]
+                    ],
+                    responsive: true,
+                    language: {
+                        search: "_INPUT_",
+                        searchPlaceholder: "Search records",
                     },
-                    { data: 'es_doc',
-                        render: function (data, type, row) {
-                            if(row.es_doc != null)
-                                return `
-                            <a href="<?php echo base_url() ?>assets/documents/${row.es_doc}" target="_blank">${row.es_doc}</a>
-                            `
-                            else
-                                return "";
-                        }
+                    "ajax": {
+                        "url": "<?php echo base_url() ?>local/Orientation/read",
+                        "type": "GET"
                     },
-                    { data: 'id',
-                        render: function (data, type, row) {
-                            return `
-                            <div idkey="`+row.id+`">
-                                <span class="btn btn-icon btn-sm btn-light-primary upload_document_btn"><i class="fa fa-file"></i></span>
-                                <span class="btn btn-icon btn-sm btn-light-warning doceditbtn"><i class="fas fa-edit"></i></span>
-                                <span class="btn btn-icon btn-sm btn-light-danger  docdeletebtn"><i class="fas fa-trash"></i></span>
-                            </div>
-                            `
-                        }
-                    }
-                ]
-            });
-
-            $(document).on("click",".docdeletebtn",function(){
-                window.id = $(this).parent().attr("idkey");
-                var tmp = $(this).parent().parent().parent();
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.value) {
-                        $.ajax ({
-                            url: '<?php echo base_url() ?>local/Orientation/delete',
-                            method: "POST",
-                            data: {id: window.id},
-                            dataType: "text",
-                            success: function (data) {
-                                if(data = "ok")
-                                    tmp.remove();
+                    "columns": [
+                        { data: 'id' },
+                        { data: 'en_title' },
+                        { data: 'es_title'},
+                        { data: 'en_doc',
+                            render: function (data, type, row) {
+                                if(row.en_doc != null)
+                                    return `
+                                <a href="<?php echo base_url() ?>assets/documents/${row.en_doc}" target="_blank">${row.en_doc}</a>
+                                `
+                                else
+                                    return "";
                             }
-                        });
+                        },
+                        { data: 'es_doc',
+                            render: function (data, type, row) {
+                                if(row.es_doc != null)
+                                    return `
+                                <a href="<?php echo base_url() ?>assets/documents/${row.es_doc}" target="_blank">${row.es_doc}</a>
+                                `
+                                else
+                                    return "";
+                            }
+                        },
+                        { data: 'id',
+                            render: function (data, type, row) {
+                                return `
+                                <div idkey="`+row.id+`">
+                                    <span class="btn btn-icon btn-sm btn-light-primary upload_document_btn"><i class="fa fa-file"></i></span>
+                                    <span class="btn btn-icon btn-sm btn-light-warning doceditbtn"><i class="fas fa-edit"></i></span>
+                                    <span class="btn btn-icon btn-sm btn-light-danger  docdeletebtn"><i class="fas fa-trash"></i></span>
+                                </div>
+                                `
+                            }
+                        }
+                    ]
+                });
+
+                $(document).on("click",".docdeletebtn",function(){
+                    window.id = $(this).parent().attr("idkey");
+                    var tmp = $(this).parent().parent().parent();
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.value) {
+                            $.ajax ({
+                                url: '<?php echo base_url() ?>local/Orientation/delete',
+                                method: "POST",
+                                data: {id: window.id},
+                                dataType: "text",
+                                success: function (data) {
+                                    if(data = "ok")
+                                        tmp.remove();
+                                }
+                            });
+                        }
+                    });
+                });
+                handleAreaToggleBox('#orientation_toggle', 'orientation_area');
+            });
+            function updateOrientationDesc(){
+                title_en = $("#title_en").val();
+                title_es = $("#title_es").val();
+
+                desc_en = $("#desc_en").val();
+                desc_es = $("#desc_es").val();
+                $.ajax({
+                    url: '<?php echo base_url() ?>local/Orientation/updateOrientationDesc',
+                    method: "POST",
+                    data: {title_en: title_en, title_es: title_es, desc_en: desc_en, desc_es: desc_es},
+                    dataType: "text",
+                    success: function (data) {
+                        handleResponse(data);
                     }
                 });
-            });
-            handleAreaToggleBox('#orientation_toggle', 'orientation_area');
-        });
-        function updateOrientationDesc(){
-            title_en = $("#title_en").val();
-            title_es = $("#title_es").val();
-
-            desc_en = $("#desc_en").val();
-            desc_es = $("#desc_es").val();
-            $.ajax({
-                url: '<?php echo base_url() ?>local/Orientation/updateOrientationDesc',
-                method: "POST",
-                data: {title_en: title_en, title_es: title_es, desc_en: desc_en, desc_es: desc_es},
-                dataType: "text",
-                success: function (data) {
-                    handleResponse(data);
-                }
-            });
-        }
-    </script>
+            }
+        </script>
     </body>
 </html>

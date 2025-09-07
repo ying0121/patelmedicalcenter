@@ -29,9 +29,9 @@
                                 </div>
                                 <div class="d-flex justify-content-end align-items-center h-25 px-3">
                                     <?php if ($letters[$i]["cost"] > 0): ?>
-                                        <span class="badge badge-danger fs-6">$ <?php echo $letters[$i]["cost"]; ?></span>
+                                        <span class="badge <?php if ($letters[$i]["status"] == 0) echo "bg-secondary"; else echo "badge-danger"; ?> fs-6">$ <?php echo $letters[$i]["cost"]; ?></span>
                                     <?php else: ?>
-                                        <span class="badge badge-success fs-6">FREE</span>
+                                        <span class="badge <?php if ($letters[$i]["status"] == 0) echo "bg-secondary"; else echo "badge-success"; ?> fs-6">FREE</span>
                                     <?php endif ?>
                                 </div>
                             </div>

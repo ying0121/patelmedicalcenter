@@ -50,7 +50,8 @@ class Letters extends CI_Controller
             'short_desc' => $_POST['short_desc'],
             'long_desc' => $_POST['long_desc'],
             'status' => $_POST['status'],
-            'request_letter' => $_POST['request_letter']
+            'request_letter' => $_POST['request_letter'],
+            'cost' => $_POST['cost'],
         );
         $result = $this->Letters_model->addLetters($data);
         if ($result) {
