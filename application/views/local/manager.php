@@ -3,6 +3,27 @@
 
 <head>
     <?php $this->load->view('local/header'); ?>
+
+    <style>
+        .password-container {
+			position: relative;
+		}
+		.password-container .toggle-password {
+			position: absolute;
+			right: 10px;
+			top: 50%;
+			transform: translateY(-50%);
+			cursor: pointer;
+		}
+
+        .password-container .toggle-repassword {
+			position: absolute;
+			right: 10px;
+			top: 50%;
+			transform: translateY(-50%);
+			cursor: pointer;
+		}
+    </style>
 </head>
 
 <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
@@ -180,13 +201,19 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <h6>Password</h6>
-                            <input name='pwd' id='pwd' class="form-control" type="password" required autocomplete="new-password" />
+                            <div class="password-container">
+                                <input name='pwd' id='pwd' class="form-control" type="password" required autocomplete="new-password" data-eye />
+                                <i class="fas fa-eye toggle-password"></i>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <h6>Confirm Password</h6>
-                            <input name='cpwd' id='cpwd' class="form-control" type="password" required autocomplete="new-password" />
+                            <div class="password-container">
+                                <input name='cpwd' id='cpwd' class="form-control" type="password" required autocomplete="new-password" data-eye />
+                                <i class="fas fa-eye toggle-repassword"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -626,6 +653,20 @@
                 }
             })
         })
+
+        $('.toggle-password').on('click', function () {
+            const passwordInput = $('#pwd');
+            const type = passwordInput.attr('type') === 'password' ? 'text' : 'password';
+            passwordInput.attr('type', type);
+            $(this).toggleClass('fa-eye fa-eye-slash');
+        });
+
+        $('.toggle-repassword').on('click', function () {
+            const repasswordInput = $('#cpwd');
+            const type = repasswordInput.attr('type') === 'password' ? 'text' : 'password';
+            repasswordInput.attr('type', type);
+            $(this).toggleClass('fa-eye fa-eye-slash');
+        });
     });
 </script>
 

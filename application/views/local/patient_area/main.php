@@ -31,7 +31,7 @@
                                 </div>
                                 <ul class="nav nav-tabs nav-pills" data-tabs="tabs">
                                     <li class="nav-item">
-                                        <a class="nav-link active" href="#invoice" data-toggle="tab">
+                                        <a class="nav-link" href="#invoice" data-toggle="tab">
                                             Invoice
                                         </a>
                                     </li>
@@ -41,7 +41,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#contact" data-toggle="tab">
+                                        <a class="nav-link active" href="#contact" data-toggle="tab">
                                             Online Requests
                                         </a>
                                     </li>
@@ -73,13 +73,13 @@
 
                         <div class="col-md-12">
                             <div class="tab-content">
-                                <div class="tab-pane active" id="invoice">
+                                <div class="tab-pane" id="invoice">
                                     <?php include('invoice.php') ?>
                                 </div>
                                 <div class="tab-pane" id="payment">
                                     <?php include('payment.php') ?>
                                 </div>
-                                <div class="tab-pane" id="contact">
+                                <div class="tab-pane active" id="contact">
                                     <?php include('contact.php') ?>
                                 </div>
                                 <div class="tab-pane" id="report">
