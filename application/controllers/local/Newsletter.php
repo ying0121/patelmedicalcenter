@@ -8,7 +8,7 @@ class Newsletter extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('ContactInfo_model');
-
+		$this->load->model('AreaToggle_model');
 		$this->load->model('Newsletter_model');
 		$this->load->helper('url');
 
@@ -19,6 +19,7 @@ class Newsletter extends CI_Controller
 	{
 		$data['sideitem'] = 'newsletter';
 		$data['contact_info'] = $this->ContactInfo_model->read();
+		$data['area_toggle'] = $this->AreaToggle_model->read();
 
 		$data['phones'] = $this->Newsletter_model->getusersbyphones();
 		$data['images'] = $this->Newsletter_model->getimages();
@@ -29,6 +30,8 @@ class Newsletter extends CI_Controller
 		if ($this->session->userdata('userid') == '' || $this->session->userdata('userid') == null)
 			redirect('central', 'refresh');
 
+		$data['contact_info'] = $this->ContactInfo_model->read();
+		$data['area_toggle'] = $this->AreaToggle_model->read();
 		$data['sideitem'] = 'newsletter';
 		$id = $this->input->get('id');
 		$data['id'] = $id;

@@ -150,8 +150,8 @@ class Newsletter_model extends CI_Model
 	}
 	function getMedicationConditions()
 	{
-		$this->db->select('id, name');
-		$this->db->from('medconditions');
+		$this->db->select('id, en AS name');
+		$this->db->from('education_tags');
 		$query = $this->db->get();
 		$result = $query->result_array();
 		return $result;
@@ -305,49 +305,42 @@ class Newsletter_model extends CI_Model
 
 		$resultData = [];
 		for ($i = 0; $i < count($medCondIDArray); $i++) {
-			$this->db->select('id, name');
-			$this->db->from('medconditions');
-			$this->db->where("id", $medCondIDArray[$i]);
+			$this->db->select('tag');
+			$this->db->from('education_tags');
+			$this->db->where("education_tags.id", $medCondIDArray[$i]);
 			$query = $this->db->get();
-			$result = $query->result_array();
-			$medCondName = $result[0]["name"];
+			$educationTag = $query->row_array();
 
-			$this->db->select('id');
-			$this->db->from('contents');
-			$this->db->where("contents.en", $medCondName);
-			$query = $this->db->get();
-			$contentsId = $query->row_array();
-
-			//documents
-			$this->db->select('id, en_name AS name,en_desc AS desc,en_doc AS doc');
-			$this->db->from('documents');
-			$this->db->where("documents.page", $contentsId['id']);
-			$this->db->where("documents.status", 1);
-			$this->db->where("en_doc !=", null);
-			$this->db->where("es_doc !=", null);
+			//education_docs
+			$this->db->select('id, title_en AS name,desc_en AS desc,url_en AS doc');
+			$this->db->from('education_docs');
+			$this->db->where("education_docs.tag", $educationTag['tag']);
+			$this->db->where("education_docs.status", 1);
+			$this->db->where("url_en !=", null);
+			$this->db->where("url_en !=", null);
 			$query = $this->db->get();
 			$result = $query->result_array();
 			for ($j = 0; $j < count($result); $j++) {
 				$resultData[] = [
 					"value" => "doc_" . $result[$j]["id"],
-					"text" => $medCondName . "-" . "Doc" . "-" . $result[$j]["name"]
+					"text" => $educationTag['tag'] . "-" . "Doc" . "-" . $result[$j]["name"]
 				];
 			}
 
 			//videos
-			$this->db->select('id, en AS url');
-			$this->db->from('evideos');
-			$this->db->where("evideos.title", $contentsId['id']);
-			$this->db->where("evideos.status", 1);
-			$this->db->where("en !=", null);
-			$this->db->where("es !=", null);
+			$this->db->select('id, url_en AS url');
+			$this->db->from('education_videos');
+			$this->db->where("education_videos.tag", $educationTag['tag']);
+			$this->db->where("education_videos.status", 1);
+			$this->db->where("url_en !=", null);
+			$this->db->where("url_es !=", null);
 
 			$query = $this->db->get();
 			$result = $query->result_array();
 			for ($j = 0; $j < count($result); $j++) {
 				$resultData[] = [
 					"value" => "video_" . $result[$j]["id"],
-					"text" => $medCondName . "-" . "Video" . "-" . $result[$j]["url"]
+					"text" => $educationTag['tag'] . "-" . "Video" . "-" . $result[$j]["url"]
 				];
 			}
 		}
@@ -371,10 +364,10 @@ class Newsletter_model extends CI_Model
 				$tokens = explode("_", $eduMatIDArray[$i]);
 				if ($tokens[0] == "doc") {
 					if ($lang == "en")
-						$this->db->select('id,en_name AS name,en_desc AS desc,en_doc AS doc');
+						$this->db->select('id,en_title AS name,en_desc AS desc,en_doc AS doc');
 					else
-						$this->db->select('id,es_name AS name,es_desc AS desc,es_doc AS doc');
-					$this->db->from('documents');
+						$this->db->select('id,es_title AS name,es_desc AS desc,es_doc AS doc');
+					$this->db->from('education_docs');
 					$this->db->where("id", $tokens[1]);
 
 					$query = $this->db->get();

@@ -1,104 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <?php include('header.php'); ?>
-    <style>
-      .btn-group, .btn-group-vertical {
-          margin: 0!important;
-      }
-      .btn-group-newsletter{
-          position: absolute;
-          right: 30px;
-          top: 20px;
-      }
-      .btn-group-newsletter i{
-          cursor: pointer;
-      }
-      .bootstrap-tagsinput{
-          width:100%!important;
-      }
-      .label-info {
-          background: #0774f8;
-          color: #fff;
-      }
-      .tag {
-          font-size: 0.75rem;
-          color: #25252a;
-          border-radius: 3px;
-          padding: 0 .5rem;
-          line-height: 2em;
-          display: -ms-inline-flexbox;
-          display: inline-flex;
-          cursor: default;
-          font-weight: 400;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
-          margin-top: 2px;
-      }
-      .image-item {
-        padding: 10px;
-        display: inline-block;
-        margin-bottom: 10px;
-        border: 1px solid transparent;
-        border-radius: 6px;
-        cursor: pointer;
-      }
-      .image-item img {
-        max-width: 180px;
-      }
-      .image-item p {
-        font-weight: 700;
-        font-size: 14px;
-        margin-top: 8px;
-      }
-      .image-item:hover {
-        border-color: #999;
-      }
-      .active-item {
-        border-color: #999;
-      }
-      .set-item {
-        border-color: #4169e1;
-      }
-      .set-item p {
-        color: #4169e1;
-      }
-    </style>
-  </head>
-  <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
-        <?php $this->load->view('local/mobile_topmenu'); ?>
-        <div class="d-flex flex-column flex-root">
-            <div class="d-flex flex-row flex-column-fluid page">
-                <?php $this->load->view('local/menu'); ?>
-                <div class="d-flex flex-column flex-row-fluid wrapper pt-20" id="kt_wrapper">
-                    <?php $this->load->view('local/topmenu'); ?>
-                    <div class="content d-flex flex-column flex-column-fluid p-10">
-              <div class = "row">
-                <div class="col-md-12">
-                  <div class="card">
-                    <div class="card-header card-header-icon card-header-primary no-print">
-                      <div class = 'row'>
-                          <input type="hidden" id="chosen_newsletter_id" />
-                          <div class = 'col-md-12 text-right'><span class = 'newsletter_add btn btn-light-primary btn-icon' ><i class = 'fa fa-plus'></i></span></div>
-                      </div>
-                    </div>
-                    <div class="card-body">
-                      <div class="table-responsive">
-                        <table class="table" id="newsletter_tb">
-                          <thead>
-                            <th>Subject</th>
-                            <th>Author</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th class = "actionth">Action</th>
-                          </thead>
-                          <tbody>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
+<head>
+  <?php include('header.php'); ?>
+  <style>
+    .btn-group, .btn-group-vertical {
+      margin: 0!important;
+    }
+    .btn-group-newsletter{
+      position: absolute;
+      right: 30px;
+      top: 20px;
+    }
+    .btn-group-newsletter i{
+      cursor: pointer;
+    }
+    .bootstrap-tagsinput{
+      width:100%!important;
+    }
+    .label-info {
+      background: #0774f8;
+      color: #fff;
+    }
+    .tag {
+      font-size: 0.75rem;
+      color: #25252a;
+      border-radius: 3px;
+      padding: 0 .5rem;
+      line-height: 2em;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      cursor: default;
+      font-weight: 400;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      margin-top: 2px;
+    }
+    .image-item {
+      padding: 10px;
+      display: inline-block;
+      margin-bottom: 10px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .image-item img {
+      max-width: 180px;
+    }
+    .image-item p {
+      font-weight: 700;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+    .image-item:hover {
+      border-color: #999;
+    }
+    .active-item {
+      border-color: #999;
+    }
+    .set-item {
+      border-color: #4169e1;
+    }
+    .set-item p {
+      color: #4169e1;
+    }
+  </style>
+</head>
+<body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
+  <?php $this->load->view('local/mobile_topmenu'); ?>
+  <div class="d-flex flex-column flex-root">
+    <div class="d-flex flex-row flex-column-fluid page">
+      <?php $this->load->view('local/menu'); ?>
+      <div class="d-flex flex-column flex-row-fluid wrapper pt-20" id="kt_wrapper">
+        <?php $this->load->view('local/topmenu'); ?>
+        <div class="content d-flex flex-column flex-column-fluid p-10">
+          <div class = "row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-icon card-header-primary no-print">
+                  <div class = 'row'>
+                    <input type="hidden" id="chosen_newsletter_id" />
+                    <div class = 'col-md-12 text-right'><span class = 'newsletter_add btn btn-light-primary btn-icon' ><i class = 'fa fa-plus'></i></span></div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table" id="newsletter_tb">
+                      <thead>
+                        <th>Subject</th>
+                        <th>Author</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th class = "actionth">Action</th>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
                   </div>
                 </div>
               </div>
@@ -106,8 +103,9 @@
           </div>
         </div>
       </div>
-        
-  </body>
+    </div>
+  </div>
+</body>
   <!-- The Modal -->
 	<div class="modal fade" id="newsletter_add_modal">
     <div class="modal-dialog modal-lg">
@@ -119,28 +117,28 @@
         <div class="modal-body">
           <div class = "row">
             <div class="col-md-6">
+              <h6>Subject (En)</h6>
                 <div class="form-group">
-                    <h6>Subject (En)</h6>
-                    <input name = 'newsletter_sub_en' id = 'newsletter_sub_en' class="form-control" type="text" required />
-                </div>
+                <input name = 'newsletter_sub_en' id = 'newsletter_sub_en' class="form-control" type="text" required />
+              </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
-                    <h6>Subject (Es)</h6>
-                    <input name = 'newsletter_sub_es' id = 'newsletter_sub_es' class="form-control" type="text" required />
-                </div>
+              <div class="form-group">
+                <h6>Subject (Es)</h6>
+                <input name = 'newsletter_sub_es' id = 'newsletter_sub_es' class="form-control" type="text" required />
+              </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
-                    <h6>Author</h6>
-                    <input name = 'newsletter_author' id = 'newsletter_author' class="form-control" type="text" required />
-                </div>
+              <div class="form-group">
+                <h6>Author</h6>
+                <input name = 'newsletter_author' id = 'newsletter_author' class="form-control" type="text" required />
+              </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
-                  <h6>Date</h6>
-                  <input type="text" name = 'newsletter_date' id = 'newsletter_date' class="form-control datepicker">
-                </div>
+              <div class="form-group">
+                <h6>Date</h6>
+                <input type="text" name = 'newsletter_date' id = 'newsletter_date' class="form-control datepicker">
+              </div>
             </div>
           </div>
         </div>
@@ -154,139 +152,137 @@
   <!--- end modal -->
   <!-- The Modal -->
 	<div class="modal fade" id="newsletter_email_modal">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                        <h4 class="modal-title ">Send Newsletter Email</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-check form-check-radio form-check-inline">
-                                <label class="form-check-label">
-                                    <input class="form-check-input emaillangnewsletter" checked name="emaillangnewsletter" type="radio" value="1"> ENG
-                                    <span class="circle">
-                                        <span class="check"></span>
-                                    </span>
-                                </label>
-                            </div>
-                            <div class="form-check form-check-radio form-check-inline">
-                                <label class="form-check-label">
-                                    <input class="form-check-input emaillangnewsletter" name="emaillangnewsletter" type="radio" value="2"> SPA
-                                    <span class="circle">
-                                        <span class="check"></span>
-                                    </span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-check form-check-inline">
-                              <label class="form-check-label">
-                                  <input class="form-check-input newsletter_allpts" type="checkbox" value="1"> All Patients
-                                  <span class="form-check-sign">
-                                      <span class="check"></span>
-                                  </span>
-                              </label>
-                            </div>
-                            <div class="form-group" style="display:inline-block!important">
-                                <label>Appointment Months</label>
-                                <input name = 'newsletter_apt_month' id = 'newsletter_apt_month' class="form-control" type="number" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light-primary submitemailbtn" data-dismiss="modal">Done</button>
-                    <button type="button" class="btn btn-light-danger" data-dismiss="modal">Close</button>
-                </div>
-            </div>
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title ">Send Newsletter Email</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-check form-check-radio form-check-inline">
+                  <label class="form-check-label">
+                      <input class="form-check-input emaillangnewsletter" checked name="emaillangnewsletter" type="radio" value="1"> ENG
+                      <span class="circle">
+                          <span class="check"></span>
+                      </span>
+                  </label>
+              </div>
+              <div class="form-check form-check-radio form-check-inline">
+                  <label class="form-check-label">
+                      <input class="form-check-input emaillangnewsletter" name="emaillangnewsletter" type="radio" value="2"> SPA
+                      <span class="circle">
+                          <span class="check"></span>
+                      </span>
+                  </label>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-check form-check-inline">
+                <label class="form-check-label">
+                  <input class="form-check-input newsletter_allpts" type="checkbox" value="1"> All Patients
+                  <span class="form-check-sign">
+                    <span class="check"></span>
+                  </span>
+                </label>
+              </div>
+              <div class="form-group" style="display:inline-block!important">
+                <label>Appointment Months</label>
+                <input name = 'newsletter_apt_month' id = 'newsletter_apt_month' class="form-control" type="number" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light-primary submitemailbtn" data-dismiss="modal">Done</button>
+          <button type="button" class="btn btn-light-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
 	</div>
-    <!--- end modal -->
+  <!--- end modal -->
   <!-- The Modal -->
 	<div class="modal fade" id="newsletter_phone_modal">
-      <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                      <h4 class="modal-title ">Send Newsletter SMS</h4>
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title ">Send Newsletter SMS</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-check form-check-radio form-check-inline">
+                <label class="form-check-label">
+                  <input class="form-check-input phonelangnewsletter" checked name="phonelangnewsletter" type="radio" value="1"> ENG
+                  <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                </label>
               </div>
-              <!-- Modal body -->
-              <div class="modal-body">
-                  <div class="row">
-                      <div class="col-md-12">
-                          <div class="form-check form-check-radio form-check-inline">
-                              <label class="form-check-label">
-                                  <input class="form-check-input phonelangnewsletter" checked name="phonelangnewsletter" type="radio" value="1"> ENG
-                                  <span class="circle">
-                                      <span class="check"></span>
-                                  </span>
-                              </label>
-                          </div>
-                          <div class="form-check form-check-radio form-check-inline">
-                              <label class="form-check-label">
-                                  <input class="form-check-input phonelangnewsletter" name="phonelangnewsletter" type="radio" value="2"> SPA
-                                  <span class="circle">
-                                      <span class="check"></span>
-                                  </span>
-                              </label>
-                          </div>
-
-                      </div>
-                      <div class="col-md-12">
-                          <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input class="form-check-input allsmspts" type="checkbox" value="1" > All Patients
-                                <span class="form-check-sign">
-                                    <span class="check"></span>
-                                </span>
-                            </label>
-                          </div>
-                          <div class="form-group" style="display:inline-block!important">
-                              <label>Appointment Months</label>
-                              <input name = 'newsletter_sms_apt_month' id = 'newsletter_sms_apt_month' class="form-control" type="number" />
-                          </div>
-                      </div>
-                  </div>
+              <div class="form-check form-check-radio form-check-inline">
+                <label class="form-check-label">
+                  <input class="form-check-input phonelangnewsletter" name="phonelangnewsletter" type="radio" value="2"> SPA
+                  <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                </label>
               </div>
-              <!-- Modal footer -->
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-light-primary submitphonebtn" data-dismiss="modal">Done</button>
-                  <button type="button" class="btn btn-light-danger" data-dismiss="modal">Close</button>
+            </div>
+            <div class="col-md-12">
+              <div class="form-check form-check-inline">
+                <label class="form-check-label">
+                  <input class="form-check-input allsmspts" type="checkbox" value="1" > All Patients
+                  <span class="form-check-sign">
+                    <span class="check"></span>
+                  </span>
+                </label>
               </div>
+              <div class="form-group" style="display:inline-block!important">
+                <label>Appointment Months</label>
+                <input name = 'newsletter_sms_apt_month' id = 'newsletter_sms_apt_month' class="form-control" type="number" />
+              </div>
+            </div>
           </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light-primary submitphonebtn" data-dismiss="modal">Done</button>
+          <button type="button" class="btn btn-light-danger" data-dismiss="modal">Close</button>
+        </div>
       </div>
-</div>
+    </div>
+  </div>
   <!--- end modal -->
   <!-- The Modal -->
 	<div class="modal fade" id="avatar_edit_modal">
     <div class="modal-dialog">
       <div class="modal-content">
-          <!-- Modal Header -->
-          <div class="modal-header">
-              <h4 class="modal-title ">Update Header Image</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <!-- Modal body -->
-          <div class="modal-body text-center">
-            <?php for($i=0;$i<count($images);$i++): ?>
-              <div class="image-item" id="<?php echo $images[$i]['id'] ?>">
-                <img src="<?php echo base_url() ?>/assets/images/newsimg/<?php echo $images[$i]['img'] ?>" />
-                <p><?php echo $images[$i]['name'] ?></p>
-              </div>
-            <?php endfor ?>
-          </div>
-          <!-- Modal footer -->
-          </form>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-light-primary imgsubmitbtn" data-dismiss="modal">Done</button>
-            <button type="button" class="btn btn-light-danger" data-dismiss="modal">Close</button>
-          </div>
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title ">Update Header Image</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body text-center">
+          <?php for($i=0;$i<count($images);$i++): ?>
+            <div class="image-item" id="<?php echo $images[$i]['id'] ?>">
+              <img src="<?php echo base_url() ?>/assets/images/newsimg/<?php echo $images[$i]['img'] ?>" />
+              <p><?php echo $images[$i]['name'] ?></p>
+            </div>
+          <?php endfor ?>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light-primary imgsubmitbtn" data-dismiss="modal">Done</button>
+          <button type="button" class="btn btn-light-danger" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
 	</div>
@@ -299,7 +295,7 @@
       $("#newsletter_sms_apt_month").prop('disabled', true);
       
       //$('#phone_list').tagsinput();
-      let newslettertable = $('#newsletter_tb').DataTable({
+      const newslettertable = $('#newsletter_tb').DataTable({
         "pagingType": "full_numbers",
         "lengthMenu": [
         [10, 25, 50, -1],
@@ -337,11 +333,11 @@
             { data: 'id',
                 render: function (data, type, row) {
                     return `
-                    <div idkey="`+row.id+`">
-                    <span class="btn btn-icon btn-sm btn-light-primary newsimgbtn" imgid="`+row.img+`"><i class="fas fa-image"></i></span>
+                    <div idkey="${row.id}">
+                    <span class="btn btn-icon btn-sm btn-light-primary newsimgbtn" imgid="${row.img}"><i class="fas fa-image"></i></span>
                     <span class="btn btn-icon btn-sm btn-light-primary sendsmsbtn"><i class="fa fa-mobile"></i></span>
                     <span class="btn btn-icon btn-sm btn-light-primary sendemailbtn"><i class="fa fa-envelope"></i></span>
-                    <a href="<?php echo base_url() ?>local/newsletter/viewrenewsletter?id=" + row.id}" target="_blank"><span class="btn btn-icon btn-sm btn-light-warning newslettereditbtn"><i class="fa fa-eye"></i></span></a>
+                    <a href="<?php echo base_url() ?>local/newsletter/viewrenewsletter?id=${row.id}" target="_blank"><span class="btn btn-icon btn-sm btn-light-warning newslettereditbtn"><i class="fa fa-eye"></i></span></a>
                     <span class="btn btn-icon btn-sm btn-light-danger  newsletterdeletebtn"><i class="fas fa-trash"></i></span>
                     </div>
                     `
@@ -366,16 +362,14 @@
             processData: false,
             dataType: "text",
             success: function (data) {
-              if(data == "ok"){
-                setTimeout( function () {
-                    newslettertable.ajax.reload();
-                }, 1000 );
+              if(data == "true"){
+                toastr.success("Added Successfully!")
+                newslettertable.ajax.reload();
               }
               else{
                 $.notify({
                   icon: "add_alert",
                   message: "Action failed"
-
                   }, {
                   type: 'info',
                   timer: 1000,
@@ -435,14 +429,11 @@
       });
       $(document).on("click",".newsletterdeletebtn",function(){
           $("#chosen_newsletter_id").val($(this).parent().attr("idkey"));
-          var tmp = $(this).parent().parent().parent();
           Swal.fire({
                   title: 'Are you sure?',
                   text: "You won't be able to revert this!",
                   icon: 'warning',
                   showCancelButton: true,
-                  
-                  
                   confirmButtonText: 'Yes, delete it!'
           }).then((result) => {
               if (result.value) {
@@ -452,8 +443,10 @@
                       data: {id:$("#chosen_newsletter_id").val()},
                       dataType: "text",
                       success: function (data) {
-                          if(data = "ok")
-                              tmp.remove();
+                          if(data = "ok") {
+                            toastr.success("Deleted Successfully")
+                            newslettertable.ajax.reload()
+                          }
                       }
                   });
               }

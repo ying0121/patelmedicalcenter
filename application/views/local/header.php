@@ -16,6 +16,7 @@
 <link href="<?php echo base_url() ?>adminassets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="<?php echo base_url(),'adminassets/plugins/bootstrap-tagsinput.css'; ?>" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.2.0/css/bootstrap-colorpicker.min.css" rel="stylesheet">
 
 <style>
     .tag.label.label-info {
@@ -90,6 +91,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.3.2/jsencrypt.min.js" integrity="sha512-94ncgEEqkuZ4yNTFmu2dSn1TJ6Ij+ANQqpR7eLVU99kzvYzu6UjBxuVoNHtnd29R+T6nvK+ugCVI698pbyEkvQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <script src="<?php echo base_url(),'adminassets/plugins/bootstrap-tagsinput.min.js'; ?>"></script>
+<script src="<?php echo base_url(),'adminassets/plugins/bootstrap-selectpicker.js'; ?>"></script>
+<script src="<?php echo base_url(),'adminassets/plugins/bootstrap-datetimepicker.min.js'; ?>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.2.0/js/bootstrap-colorpicker.min.js"></script>
 
 <script>
     $(document).ready(function() {
