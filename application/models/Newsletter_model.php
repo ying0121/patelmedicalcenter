@@ -28,7 +28,7 @@ class Newsletter_model extends CI_Model
 
 		return $result;
 	}
-	function addnewsletter($en_sub, $es_sub, $author, $date)
+	function addnewsletter($en_sub, $es_sub, $author, $date, $link)
 	{
 		$data = array(
 			'en_sub' => $en_sub,
@@ -36,7 +36,8 @@ class Newsletter_model extends CI_Model
 			'author' => $author,
 			'published' => $date,
 			'created' => date("Y-m-d"),
-			'status' => 1
+			'status' => 1,
+			'link' => $link,
 		);
 		$result = $this->db->insert('newsletterdata', $data);
 
@@ -401,5 +402,10 @@ class Newsletter_model extends CI_Model
 			"docs" => $docResultData,
 			"videos" => $videoResultData
 		];
+	}
+
+	function getByLink($link)
+	{
+		return $this->db->select("*")->from("newsletterdata")->where("link", $link)->get()->row_array();
 	}
 }

@@ -89,6 +89,7 @@
                     <table class="table" id="newsletter_tb">
                       <thead>
                         <th>Subject</th>
+                        <th>External Link</th>
                         <th>Author</th>
                         <th>Date</th>
                         <th>Status</th>
@@ -312,6 +313,7 @@
         },
         "columns": [
             { data: 'en_sub'},
+            { data: 'link'},
             { data: 'author'},
             { data: 'published'},
             { data: 'status',
