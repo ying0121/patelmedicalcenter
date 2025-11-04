@@ -9,6 +9,7 @@
         'AboutUs': [HEADER_BANNER, CENTRAL],
         'Orientation': [HEADER_BANNER],
         'Vault': [HEADER_BANNER, CENTRAL],
+        'Auth': [HEADER_BANNER],
     };
     const VIDEO_POSITION = {
         'Home': ['DEFAULT_POSITION'],

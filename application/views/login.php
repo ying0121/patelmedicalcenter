@@ -12,7 +12,7 @@
     <?php include('header.php') ?>
     <!-- Main -->
     <main>
-        <div id="intro" class="bg-image shadow-2-strong parallax-container">
+        <div id="intro" class="bg-image shadow-2-strong parallax-container" style="height: 100vh !important; background-image: url(<?php echo base_url() ?>assets/images/pageimgs/<?php echo $HEADER_BANNER[0]['img']; ?>) !important;">
             <div class="mask d-flex align-items-center min-h-100" style="background-color: rgba(0, 0, 0, 0.8);">
                 <div class="container">
                     <div class="row justify-content-center">

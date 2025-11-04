@@ -30,7 +30,7 @@
                                         <?php if ($services[$i]["cost"] > 0): ?>
                                             <span class="badge <?php if ($services[$i]["status"] == 0) echo "bg-secondary"; else echo "badge-danger"; ?> fs-6">$ <?php echo $services[$i]["cost"]; ?></span>
                                         <?php else: ?>
-                                            <span class="badge <?php if ($services[$i]["status"] == 0) echo "bg-secondary"; else echo "badge-success"; ?> fs-6">FREE</span>
+                                            <span class="badge <?php if ($services[$i]["status"] == 0) echo "bg-secondary"; else echo "badge-success"; ?> fs-6"><?php echo $component_text["c_eligible_health_plan"]; ?></span>
                                         <?php endif ?>
                                     </div>
                                 </div>
@@ -223,7 +223,7 @@
                 contact_reason: $("#service_name").val(),
                 message: $("#message").val(),
                 captcha: $("#captcha").val(),
-                opt_status: $('input[name="opt_status"]:checked').val()
+                opt_status: $('input[name="service_opt_status"]:checked').val()
             }
 
             var errors = "";

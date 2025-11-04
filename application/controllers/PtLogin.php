@@ -58,6 +58,7 @@ class PtLogin extends CI_Controller
             $data['footer_captcha_image'] = $captcha_image;
         }
 
+        $data['HEADER_BANNER'] = $this->Frontend_model->getPageImages('Auth', 'HEADER-BANNER', $siteLang);
         $data['component_text'] = $this->Frontend_model->getComponentTexts($siteLang);
         $data['contact_info'] = $this->Frontend_model->getContactInfo();
         $data['area_toggle'] = $this->Frontend_model->getAreaToggle();
@@ -109,6 +110,7 @@ class PtLogin extends CI_Controller
             else
                 $siteLang = 'es';
 
+            $data['HEADER_BANNER'] = $this->Frontend_model->getPageImages('Auth', 'HEADER-BANNER', $siteLang);
             $data['component_text'] = $this->Frontend_model->getComponentTexts($siteLang);
             $data['contact_info'] = $this->Frontend_model->getContactInfo();
             $data['area_toggle'] = $area_toggle;
@@ -286,6 +288,7 @@ class PtLogin extends CI_Controller
         else
             $siteLang = 'es';
 
+        $data['HEADER_BANNER'] = $this->Frontend_model->getPageImages('Auth', 'HEADER-BANNER', $siteLang);
         $data['component_text'] = $this->Frontend_model->getComponentTexts($siteLang);
         $data['contact_info'] = $this->Frontend_model->getContactInfo();
         $data['area_toggle'] = $area_toggle;
@@ -721,6 +724,7 @@ class PtLogin extends CI_Controller
                 $data['footer_captcha_image'] = $captcha_image;
             }
 
+            $data['HEADER_BANNER'] = $this->Frontend_model->getPageImages('Auth', 'HEADER-BANNER', $siteLang);
             $data['component_text'] = $this->Frontend_model->getComponentTexts($siteLang);
             $data['contact_info'] = $this->Frontend_model->getContactInfo();
             $data['area_toggle'] = $area_toggle;

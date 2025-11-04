@@ -1,45 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <?php $this->load->view('local/header'); ?>
-    </head>
+<head>
+    <?php $this->load->view('local/header'); ?>
+</head>
 
-    <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
-        <?php $this->load->view('local/mobile_topmenu'); ?>
-        <div class="d-flex flex-column flex-root">
-            <div class="d-flex flex-row flex-column-fluid page">
-                <?php $this->load->view('local/menu'); ?>
-                <div class="d-flex flex-column flex-row-fluid wrapper pt-20" id="kt_wrapper">
-                    <?php $this->load->view('local/topmenu'); ?>
-                    <div class="content d-flex flex-column flex-column-fluid p-10">
+<body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
+    <?php $this->load->view('local/mobile_topmenu'); ?>
+    <div class="d-flex flex-column flex-root">
+        <div class="d-flex flex-row flex-column-fluid page">
+            <?php $this->load->view('local/menu'); ?>
+            <div class="d-flex flex-column flex-row-fluid wrapper pt-20" id="kt_wrapper">
+                <?php $this->load->view('local/topmenu'); ?>
+                <div class="content d-flex flex-column flex-column-fluid p-10">
 
-                        <div class = "row my-3 p-10 bg-white border rounded">
-                            <div class = "col-12 mb-4 d-flex justify-content-between align-items-center my-5">
-                                <div><h3>Page Images</h3></div>
-                                <div><span class = 'add_image_btn btn btn-light-primary btn-icon' ><i class = 'fa fa-plus'></i></span></div>
-                            </div>
-                            <div class = "col-12">
-                                <div class="table-responsive">
-                                    <table class="table" id="page_image_tb">
-                                        <thead>
-                                            <th>ID</th>
-                                            <th style = "">Image</th>
-                                            <th>Page</th>
-                                            <th>Position</th>
-                                            <th style = "width:100px;">Display</th>
-                                            <th style = "width: 200px;">Action</th>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
+                    <div class = "row my-3 p-10 bg-white border rounded">
+                        <div class = "col-12 mb-4 d-flex justify-content-between align-items-center my-5">
+                            <div><h3>Page Images</h3></div>
+                            <div><span class = 'add_image_btn btn btn-light-primary btn-icon' ><i class = 'fa fa-plus'></i></span></div>
+                        </div>
+                        <div class = "col-12">
+                            <div class="table-responsive">
+                                <table class="table" id="page_image_tb">
+                                    <thead>
+                                        <th>ID</th>
+                                        <th>Image</th>
+                                        <th>Page</th>
+                                        <th>Position</th>
+                                        <th style = "width:100px;">Display</th>
+                                        <th style = "width: 200px;">Action</th>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </div>
+    </div>
     <?php include('image_add_modal.php') ?>
     <?php include('image_edit_modal.php') ?>
     <?php include('image_upload_modal.php') ?>
@@ -94,6 +94,7 @@
                 ],
                 "order":[[2,'asc'],[0,'asc']]
             });
+
             $(document).on('click', '.upload_image_btn', function(){
                 var id = $(this).closest('div').attr('data-id');
                 $.ajax({
@@ -106,10 +107,6 @@
                     }
                 }).then(() => {
                     window.id = id;
-                    if(position == 'HEADER-BANER')
-                        $("#img_size").html('(1920*420)');
-                    if(position == 'CENTRAL')
-                        $("#img_size").html('(500*550)');
                     $("#image_upload_modal").modal('show');
                 });
             });
@@ -122,8 +119,6 @@
                     text: "You won't be able to revert this!",
                     icon: 'warning',
                     showCancelButton: true,
-                    
-                    
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.value) {
@@ -140,9 +135,6 @@
                     }
                 });
             });
-
-            
-        
         });
     </script>
 </body>

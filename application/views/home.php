@@ -293,13 +293,7 @@
                 <div id="doctor-carousel" class="carousel slide carousel-fade" data-mdb-ride="carousel" data-mdb-carousel-init>
                     <div class="carousel-indicators">
                         <?php for ($i = 0; $i < count($doctors); $i++): ?>
-                            <button
-                                type="button"
-                                data-mdb-target="#doctor-carousel"
-                                data-mdb-slide-to="<?php echo $i; ?>"
-                                class="active"
-                                aria-current="true"
-                                aria-label="Slide <?php echo $i + 1; ?>"></button>
+                            <button type="button" data-mdb-target="#doctor-carousel" data-mdb-slide-to="<?php echo $i; ?>" class="active" aria-current="true" aria-label="Slide <?php echo $i + 1; ?>"></button>
                         <?php endfor ?>
                     </div>
                     <div class="carousel-inner">
@@ -313,7 +307,7 @@
                                 <div class="col-md-9 px-3">
                                     <h2 class="name text-left text-color-title-sidebar"><a href="#"><?php echo $doctors[$i]['name'] ?></a></h2>
                                     <div style="text-align:left;" class="p-3 pdt-8"><?php echo $doctors[$i]['desc'] ?></div>
-                                    <div class="flat-read-more text-left p-3">
+                                    <div class="flat-read-more text-left px-3">
                                         <a href="#" class="modal-trigger themesflat-button font-default process" data-needpopup-show="#doctor_detail_modal_<?php echo $i ?>">
                                             <span><?php echo $component_text['btn_read_more']; ?><i class="fa fa-arrow-right"></i> </span>
                                         </a>
@@ -367,13 +361,27 @@
 
                 <?php for ($i = 0; $i < count($staffs); $i++): ?>
                     <div id='staff_detail_modal_<?php echo $i ?>' class="needpopup">
-                        <div>Name: <?php echo $staffs[$i]['name'] ?></div>
-                        <div>Job: <?php echo $staffs[$i]['job'] ?></div>
+                        <!-- Name -->
+                        <?php if ($staffs[$i]['name']): ?>
+                            <div>Name: <?php echo $staffs[$i]['name'] ?></div>
+                        <?php endif ?>
+                        <!-- Job -->
+                        <?php if ($staffs[$i]['job']): ?>
+                            <div>Job: <?php echo $staffs[$i]['job'] ?></div>
+                        <?php endif ?>
                         <?php if ($staffs[$i]['email_tel_ext_toggle'] == 1): ?>
-                            <div>Email: <?php echo $staffs[$i]['email'] ?></div>
+                            <!-- Email -->
+                            <?php if ($staffs[$i]['email']): ?>
+                                <div>Email: <?php echo $staffs[$i]['email'] ?></div>
+                            <?php endif ?>
+                            <!-- Tel & Ext -->
                             <div class="row">
-                                <div class="col-12 col-md-6">Tel: <?php echo $staffs[$i]['tel'] ?></div>
-                                <div class="col-12 col-md-6">Ext: <?php echo $staffs[$i]['ext'] ?></div>
+                                <?php if ($staffs[$i]['tel']): ?>
+                                    <div class="col-12 col-md-6">Tel: <?php echo $staffs[$i]['tel'] ?></div>
+                                <?php endif ?>
+                                <?php if ($staffs[$i]['ext']): ?>
+                                    <div class="col-12 col-md-6">Tel: <?php echo $staffs[$i]['ext'] ?></div>
+                                <?php endif ?>
                             </div>
                         <?php endif ?>
                         <br>
@@ -458,13 +466,13 @@
                             </div>
                             <div class="col-md-12 mb-2">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="opt_status" id="opt_in" value="1" checked />
+                                    <input class="form-check-input" type="radio" name="opt_status" id="service_opt_in" value="1" />
                                     <label class="form-check-label" for="opt_in"> <?php echo $component_text['t_opt_in_out_in'] ?> </label>
                                 </div>
                             </div>
                             <div class="col-md-12 mb-2">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="opt_status" id="opt_out" value="0" />
+                                    <input class="form-check-input" type="radio" name="opt_status" id="service_opt_out" value="0" />
                                     <label class="form-check-label" for="opt_out"> <?php echo $component_text['t_opt_in_out_out'] ?> </label>
                                 </div>
                             </div>

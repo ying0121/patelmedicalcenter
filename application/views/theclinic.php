@@ -15,17 +15,8 @@
     <main>
         <!-- Parallax Image -->
         <?php $img_id = rand(0, count($HEADER_BANNER) - 1); ?>
-        <div class="parallax-container w-100" style="background-image: url('<?php echo base_url() ?>assets/images/pageimgs/<?php echo $HEADER_BANNER[$img_id]['img'] ?>'); height: 500px;">
-            <div class="d-flex align-items-center" style="height:100%;">
-                <div class="p-5 col-12 col-md-8">
-                    <div style="height:30%; font-size:36px;" class="d-flex align-items-center">
-                        <?php echo $HEADER_BANNER[$img_id]['title']; ?>
-                    </div>
-                    <div style="height:70%; font-size:18px;" class="d-flex align-items-center mt-3">
-                        <?php echo $HEADER_BANNER[$img_id]['desc']; ?>
-                    </div>
-                </div>
-            </div>
+        <div class="parallax-container w-100">
+            <img src="<?php echo base_url() ?>assets/images/pageimgs/<?php echo $HEADER_BANNER[$img_id]['img'] ?>" class="w-100" />
         </div>
         <!-- The Clinic -->
         <div class="container">

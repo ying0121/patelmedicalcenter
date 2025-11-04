@@ -23,7 +23,7 @@
 ***********************************************/
 .needpopup_wrapper {
   position: fixed;
-  z-index: 999;
+  z-index: 1031;
   top: 0;
   left: 0;
 

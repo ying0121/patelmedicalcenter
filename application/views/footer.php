@@ -327,7 +327,7 @@
     })
 
     $(document).on('click', '.modal-trigger', function() {
-        $('.needpopup_wrapper').css('z-index', 1000);
+        $('.needpopup_wrapper').css('z-index', 1031);
     })
 
     function setLang(lang) {

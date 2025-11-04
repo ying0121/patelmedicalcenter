@@ -447,11 +447,11 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-check my-1">
-                                <input class="form-check-input" type="radio" value="1" name="opt_status" id="pt_opt_in" checked />
+                                <input class="form-check-input" type="radio" value="1" name="opt_opt_status" id="pt_opt_in" checked />
                                 <label class="form-check-label" for="pt_opt_in"><?php echo $component_text['t_opt_in_out_in']; ?></label>
                             </div>
                             <div class="form-check my-1">
-                                <input class="form-check-input" type="radio" value="0" name="opt_status" id="pt_opt_out" checked />
+                                <input class="form-check-input" type="radio" value="0" name="opt_opt_status" id="pt_opt_out" />
                                 <label class="form-check-label" for="pt_opt_in"><?php echo $component_text['t_opt_in_out_out']; ?></label>
                             </div>
                         </div>

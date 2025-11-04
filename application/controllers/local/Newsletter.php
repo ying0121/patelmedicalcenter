@@ -42,7 +42,6 @@ class Newsletter extends CI_Controller
 	}
 	public function renderNewsLetter($link)
 	{
-		error_log($link);
 		// get id from newsletterdata table
 		$newsletter = $this->Newsletter_model->getByLink($link);
 

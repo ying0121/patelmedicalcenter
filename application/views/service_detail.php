@@ -259,7 +259,7 @@
                 contact_reason: $("#service_name").val(),
                 message: $("#message").val(),
                 captcha: $("#captcha").val(),
-                opt_status: $('input[name="opt_status"]:checked').val()
+                opt_status: $('input[name="service_opt_status"]:checked').val()
             }
 
             var errors = "";
