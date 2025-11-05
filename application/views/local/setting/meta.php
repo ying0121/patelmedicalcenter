@@ -27,7 +27,7 @@
         <img src="<?php echo base_url() ?>assets/images/facebook_meta.jpg" style="width:100%;">
         <div class="text-center">
             <span class="btn btn-light-primary mt-10" onclick="window.filename = 'facebook_meta.jpg'; $('#meta_upload_modal').modal('show');">Upload</span>
-            <span class="btn btn-light-primary mt-10"><a href="<?php echo base_url() . 'local/Setting/getMetaFile?filetype=facebook' ?>">Download</a></span>
+            <span class="btn btn-light-primary mt-10"><a href="<?php echo base_url() . 'local/Setting/getMetaFile?filetype=facebook' ?>" target="_blank">Download</a></span>
         </div>
     </div>
     <div class="row col-6">
@@ -57,7 +57,7 @@
         <img src="<?php echo base_url() ?>assets/images/twitter_meta.jpg" style="width:100%;">
         <div class="text-center">
             <span class="btn btn-light-primary mt-10" onclick="window.filename = 'twitter_meta.jpg'; $('#meta_upload_modal').modal('show');">Upload</span>
-            <span class="btn btn-light-primary mt-10"><a href="<?php echo base_url() . 'local/Setting/getMetaFile?filetype=twitter' ?>">Download</a></span>
+            <span class="btn btn-light-primary mt-10"><a href="<?php echo base_url() . 'local/Setting/getMetaFile?filetype=twitter' ?>" target="_blank">Download</a></span>
         </div>
     </div>
     <div class="row col-6">
