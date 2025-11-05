@@ -33,6 +33,7 @@ class Contactemail_model extends CI_Model
         $this->db->select('*');
         $this->db->from('contact_email');
         $this->db->where('email', $data['email']);
+        $this->db->where("id != ", $data["id"]);
         $result = $this->db->get()->result_array();
 
         if ($result) return 2;

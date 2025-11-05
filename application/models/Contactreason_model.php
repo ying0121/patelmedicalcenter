@@ -30,6 +30,7 @@ class Contactreason_model extends CI_Model
         $this->db->from('contact_reason');
         $this->db->where('en_name', $data['en_name']);
         $this->db->where('sp_name', $data['sp_name']);
+        $this->db->where("id != ", $data["id"]);
         $result = $this->db->get()->result_array();
 
         if ($result) return 2;

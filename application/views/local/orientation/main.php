@@ -56,9 +56,9 @@
                                         <thead>
                                             <th>Page</th>
                                             <th>English</th>
-                                            <th>Español</th>
+                                            <th>Spanish</th>
                                             <th>English Doc</th>
-                                            <th>Español Doc</th>
+                                            <th>Spanish Doc</th>
                                             <th style="width:150px;">Action</th>
                                         </thead>
                                         <tbody>

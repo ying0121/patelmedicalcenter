@@ -522,4 +522,42 @@ class Setting extends CI_Controller
             echo json_encode(array("status" => "error"));
         }
     }
+
+    // download meta file
+    public function getMetaFile()
+    {
+        $filetype = $_GET['filetype'];
+        if (($this->session->userdata('userid') == '' || $this->session->userdata('userid') == null) && ($this->session->userdata('patient_id') == '' || $this->session->userdata('patient_name') == null))
+            redirect('admin', 'refresh');
+
+        $filePath = "";
+        if ($filetype == 'facebook') {
+            $filePath = "assets/images/facebook_meta.jpg";
+        } else if ($filetype == 'twitter') {
+            $filePath = "assets/images/twitter_meta.jpg";
+        }
+
+        // Check if the file exists and is readable
+        if (file_exists($filePath) && is_readable($filePath)) {
+            // Set appropriate headers
+            header('Content-Description: File Transfer');
+            header('Content-Type: ' . mime_content_type($filePath));
+            header('Content-Disposition: attachment; filename="' . basename($filePath) . '"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($filePath));
+
+            // Clear output buffer
+            ob_clean();
+            flush();
+
+            // Output the file content
+            readfile($filePath);
+            exit;
+        } else {
+            // If the file does not exist or is not readable, return a 404 error
+            show_404();
+        }
+    }
 }

@@ -129,7 +129,7 @@
             </span>
             <span class="d-inline-block p-2px">
                 <h4 class="d-flex justify-content-end text-black">Pay Request</h4>
-                <span id="stt-total-message" class="d-flex justify-content-end text-primary fs-5 cursor-pointer stt-number">109</span>
+                <span id="stt-total-message" class="d-flex justify-content-end text-primary fs-5 cursor-pointer stt-number">0</span>
             </span>
         </div>
         <div class="px-20px">
@@ -143,7 +143,7 @@
             </span>
             <span class="d-inline-block p-2px">
                 <h4 class="d-flex justify-content-end text-black">Open</h4>
-                <span id="stt-total-message" class="d-flex justify-content-end text-danger fs-5 cursor-pointer stt-number">65</span>
+                <span id="stt-total-message" class="d-flex justify-content-end text-danger fs-5 cursor-pointer stt-number">0</span>
             </span>
         </div>
         <div class="px-20px">
@@ -157,7 +157,7 @@
             </span>
             <span class="d-inline-block p-2px">
                 <h4 class="d-flex justify-content-end text-black">In Progress</h4>
-                <span id="stt-total-message" class="d-flex justify-content-end text-success fs-5 cursor-pointer stt-number">23</span>
+                <span id="stt-total-message" class="d-flex justify-content-end text-success fs-5 cursor-pointer stt-number">0</span>
             </span>
         </div>
         <div class="px-20px">
@@ -171,7 +171,8 @@
             </span>
             <span class="d-inline-block p-2px">
                 <h4 class="d-flex justify-content-end text-black">Closed</h4>
-                <span id="stt-total-message" class="d-flex justify-content-end text-primary fs-5 cursor-pointer stt-number">1
+                <span id="stt-total-message" class="d-flex justify-content-end text-primary fs-5 cursor-pointer stt-number">0</span>
+            </span>
         </div>
         <div class="px-20px">
             <hr class="m-0">
@@ -184,7 +185,8 @@
             </span>
             <span class="d-inline-block p-2px">
                 <h4 class="d-flex justify-content-end text-black">Paid</h4>
-                <span id="stt-total-message" class="d-flex justify-content-end text-info fs-5 cursor-pointer stt-number">20
+                <span id="stt-total-message" class="d-flex justify-content-end text-info fs-5 cursor-pointer stt-number">0</span>
+            </span>
         </div>
         <div class="px-20px">
             <hr class="m-0">
