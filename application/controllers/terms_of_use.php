@@ -12,17 +12,25 @@ date_default_timezone_set('America/New_York');
 
 class Terms_of_use extends CI_Controller
 {
+    public $directory = './assets/two-captcha';
+    
     function __construct()
     {
         parent::__construct();
-        $this->load->model("Patient_model");
-        $this->load->model("Frontend_model");
+        $this->load->helper('cookie');
+
+        $this->load->model('Frontend_model');
+        $this->load->model('Patient_model');
+        $this->load->model('Systeminfo_model');
+        $this->load->model('Alert_model');
+        $this->load->model('Language_model');
+        $this->load->model('ContactInfo_model');
     }
 
     public function index()
     {
-        // get terms of use
-        $url = $this->config->item("medical_center_url") . "api/terms_of_use";
+         // get terms of use
+        $url = $this->config->item("medical_center_url") . "api/privacy_policy";
         $client = new Client([
             'timeout' => 1800,
             'connect_timeout' => 60,
@@ -35,9 +43,31 @@ class Terms_of_use extends CI_Controller
         ];
         $response = $client->request('POST', $url, $requestData);
 
+        if ($this->session->userdata('language'))
+            $siteLang = $this->session->userdata('language');
+        else
+            $siteLang = 'es';
+
+        // get random two-captcha image
+        $files = array_diff(scandir($this->directory), array('..', '.'));
+        if (empty($files)) {
+            error_log('===================================');
+        } else {
+            $randomFile = $files[array_rand($files)];
+            $captcha_image = $this->directory . '/' . $randomFile;
+            $this->session->set_userdata('ying-footer', md5($randomFile));
+            $data['footer_captcha_image'] = $captcha_image;
+        }
+
+        $data['component_text'] = $this->Frontend_model->getComponentTexts($siteLang);
+        $data['area_toggle'] = $this->Frontend_model->getAreaToggle();
+        $data['working_hours'] = $this->Frontend_model->getWorkingHours($siteLang);
+
+        $data['alerts'] = $this->Alert_model->getAvailableAlert();
         $data['info'] = json_decode($response->getBody(), true);
         $data['contact_info'] = $this->Frontend_model->getContactInfo();
         $data['meta'] = $this->Frontend_model->getMeta();
+        $data['acronym'] = $this->ContactInfo_model->readAcronym()['acronym'];
 
         // generate qr code for footer qr code
         $vCard = "BEGIN : VCARD\n";
@@ -90,5 +120,11 @@ class Terms_of_use extends CI_Controller
         $this->session->set_userdata("page_status", "terms_of_use");
 
         $this->load->view('terms_of_use', $data);
+    }
+
+    public function setLang()
+    {
+        $lang = $this->input->post('language');
+        $this->session->set_userdata('language', $lang);
     }
 }

@@ -160,12 +160,12 @@
         <div class="container d-flex justify-content-center align-items-center gap-1 gap-md-5">
             <p class="text-black-50 pt-4 text-center fs-lg-5 fs-6">
                 <?php
-                $footer = str_replace('$year;', $sysinfo["year"], $component_text['t_home_footer']);
-                $footer = str_replace('$clinic_name;', $contact_info["name"], $footer);
-                $footer = str_replace('$version;', $sysinfo["word"] . " " . $sysinfo["month"] . $sysinfo["year"], $footer);
-                $footer = str_replace('$terms_of_use', "<a class='text-primary' href='" . base_url() . "terms_of_use" . "' target='_blank'>" . $component_text['terms_of_use'] . "</a>", $footer);
-                $footer = str_replace('$privacy_policy', "<a class='text-primary' href='" . base_url() . "privacy_policy" . "' target='_blank'>" . $component_text['privacy_policy'] . "</a>", $footer);
-                echo $footer;
+                    $footer = str_replace('$year;', $sysinfo["year"], $component_text['t_home_footer']);
+                    $footer = str_replace('$clinic_name;', $contact_info["name"], $footer);
+                    $footer = str_replace('$version;', $sysinfo["word"] . " " . $sysinfo["month"] . $sysinfo["year"], $footer);
+                    $footer = str_replace('$terms_of_use', "<a class='text-primary' href='" . base_url() . "Terms_of_use" . "' target='_blank'>" . $component_text['terms_of_use'] . "</a>", $footer);
+                    $footer = str_replace('$privacy_policy', "<a class='text-primary' href='" . base_url() . "Privacy_policy" . "' target='_blank'>" . $component_text['privacy_policy'] . "</a>", $footer);
+                    echo $footer;
                 ?>
             </p>
             <!-- Section: Social media -->

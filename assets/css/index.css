@@ -22,7 +22,7 @@
 #timetable {
     overflow-y: hidden;
     transition: height 1s ease;
-    background: #FFFFFF60;
+    background: #efefefe3;
     box-shadow: 10 10 10 gray;
 }
 
