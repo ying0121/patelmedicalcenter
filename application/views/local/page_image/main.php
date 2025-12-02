@@ -83,9 +83,10 @@
                     { data: 'id',
                         render: function (data, type, row) {
                         return `
-                            <div data-id = "`+row.id+`">
+                            <div data-id = "${row.id}">
                                 <span class="btn btn-icon btn-sm btn-light-primary upload_image_btn"><i class="fas fa-image"></i></span>
                                 <span class="btn btn-icon btn-sm btn-light-warning edit_image_btn"><i class="fas fa-edit"></i></span>
+                                <span data-image="${row.img}" class="btn btn-icon btn-sm btn-light-success download_image_btn"><i class="fas fa-download"></i></span>
                                 <span class="btn btn-icon btn-sm btn-light-danger  delete_image_btn"><i class="fas fa-trash"></i></span>
                             </div>
                             `
@@ -135,8 +136,16 @@
                     }
                 });
             });
+
+            $(document).on('click', '.download_image_btn', function () {
+                const imageURL = "<?php echo base_url() ?>/assets/images/pageimgs/" + $(this).attr("data-image")
+                const link = document.createElement("a")
+                link.href = imageURL
+                link.download = $(this).attr("data-image")
+                document.body.appendChild(link)
+                link.click()
+                link.remove()
+            })
         });
     </script>
 </body>
-
-

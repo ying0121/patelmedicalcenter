@@ -10,6 +10,7 @@ class Newsletter_model extends CI_Model
 	{
 		$this->db->select('*');
 		$this->db->from('newsletterdata');
+		$this->db->order_by("id", "DESC");
 		$query = $this->db->get();
 		$result = $query->result_array();
 		return $result;

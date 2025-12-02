@@ -56,6 +56,7 @@
         <section class="footer">
             <!--Grid row-->
             <div class="row">
+                <!-- Medical Guide -->
                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0 text-md-start">
                     <h5 class="text-uppercase px-2"><?php echo $component_text['c_footer_medical_guide'] ?></h5>
                     <ul class="list-group list-group-light">
@@ -82,27 +83,29 @@
                         </li>
                     </ul>
                 </div>
+                <!-- Get In Touch -->
                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0 text-md-start">
                     <h5 class="text-uppercase px-2"><?php echo $component_text['c_footer_get_in_touch'] ?></h5>
                     <ul class="list-group list-group-light">
-                        <li class="list-group-item px-2 border-0 py-lg-3 py-1">
-                            <span><i class="fas fa-map-marker-alt flat-icon-footer text-success fs-4"></i></span>
-                            <span><a href="#"> <?php echo $contact_info['address'] ?></a></span>
+                        <li class="list-group-item px-2 border-0 py-lg-3 py-1 d-flex justify-content-start align-items-center gap-2">
+                            <div><i class="fas fa-map-marker-alt flat-icon-footer text-success fs-4"></i></div>
+                            <div><a href="#"> <?php echo $contact_info['address'] ?>, <?php echo $contact_info['city'] ?>, <?php echo $contact_info['ztate'] ?> <?php echo $contact_info['zip'] ?></a></div>
                         </li>
-                        <li class="list-group-item px-2 border-0 py-lg-3 py-1">
-                            <span><i class="fa fa-phone-alt flat-icon-footer text-success fs-4"></i></span>
-                            <span><a href="#"> <?php echo $contact_info['tel'] ?></a></span>
+                        <li class="list-group-item px-2 border-0 py-lg-3 py-1 d-flex justify-content-start align-items-center gap-2">
+                            <div><i class="fa fa-phone-alt flat-icon-footer text-success fs-4"></i></div>
+                            <div><a href="#"> <?php echo $contact_info['tel'] ?></a></div>
                         </li>
-                        <li class="list-group-item px-2 border-0 py-lg-3 py-1">
-                            <span><i class="fa fa-fax flat-icon-footer text-success fs-4"></i></span>
-                            <span><a href="#"> <?php echo $contact_info['fax'] ?></a></span>
+                        <li class="list-group-item px-2 border-0 py-lg-3 py-1 d-flex justify-content-start align-items-center gap-2">
+                            <div><i class="fa fa-fax flat-icon-footer text-success fs-4"></i></div>
+                            <div><a href="#"> <?php echo $contact_info['fax'] ?></a></div>
                         </li>
-                        <li class="list-group-item px-2 border-0 py-lg-3 py-1">
-                            <span><i class="fas fa-envelope flat-icon-footer text-success fs-4"></i></span>
-                            <span><a href="#"> <?php echo $contact_info['email'] ?></a></span>
+                        <li class="list-group-item px-2 border-0 py-lg-3 py-1 d-flex justify-content-start align-items-center gap-2">
+                            <div><i class="fas fa-envelope flat-icon-footer text-success fs-4"></i></div>
+                            <div><a href="#"> <?php echo $contact_info['email'] ?></a></div>
                         </li>
                     </ul>
                 </div>
+                <!-- Announcements -->
                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0 text-md-start">
                     <h5 class="text-uppercase"><?php echo $component_text['c_footer_announcement'] ?></h5>
                     <p><?php echo $component_text['c_footer_announcement_text'] ?></p>
@@ -138,6 +141,7 @@
                         <button id="footer_singup_btn" name="action" value="submit" type="button" class="btn btn-danger" data-mdb-ripple-init><?php echo $component_text['btn_send']; ?></button>
                     </ul>
                 </div>
+                <!-- QR Code -->
                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0 text-md-start">
                     <h5 class="text-uppercase mb-2"><?php echo $component_text['t_qrcode'] ?></h5>
                     <img width="180px" height="180px" src="data:image/png;base64,<?php echo $footer_qrcode; ?>" class="mb-3" />
