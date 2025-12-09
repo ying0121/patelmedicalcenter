@@ -18,6 +18,7 @@
             <table class="table w-100" id="clinic_service_table">
                 <thead>
                     <th>Title</th>
+                    <th>Key</th>
                     <th>Short Description</th>
                     <th>Image</th>
                     <th>Video</th>
@@ -44,6 +45,12 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <h6 class="mb-3">Key <span class="text-danger">*</span></h6>
+                            <input id="clinic_service_key" class="form-control" type="text" />
+                        </div>
+                    </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <h6>Language</h6>
@@ -112,7 +119,6 @@
                 </div>
             </div>
             <!-- Modal footer -->
-            </form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light-primary" id="clinic_service_save_btn">Save</button>
                 <button type="button" class="btn btn-light-danger" data-dismiss="modal">Close</button>
@@ -149,7 +155,6 @@
                 </div>
             </div>
             <!-- Modal footer -->
-            </form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light-primary" id="clinic_service_file_save_btn">Upload</button>
                 <button type="button" class="btn btn-light-danger" data-dismiss="modal">Close</button>
@@ -230,6 +235,8 @@
             "columns": [{
                 data: 'title'
             }, {
+                data: 'key'
+            }, {
                 data: 'short_desc'
             }, {
                 data: 'image',
@@ -265,6 +272,7 @@
         $("#clinic_service_add").click(function() {
             $("#clinic_service_modal_type").val("0")
             $("#clinic_service_title").val("")
+            $("#clinic_service_key").val("")
             $("#clinic_service_short_desc").val("")
             $("#clinic_service_long_desc").val("")
             $("#clinic_service_image").val("")
@@ -278,6 +286,7 @@
 
             const entry = {
                 id: $("#clinic_service_chosen_id").val(),
+                key: $("#clinic_service_key").val(),
                 language: $("#clinic_service_language").val(),
                 category: $("#clinic_service_category").val(),
                 title: $("#clinic_service_title").val(),
@@ -292,6 +301,10 @@
 
             if (!entry.title) {
                 toastr.info("Please enter title!")
+                return
+            }
+            if (!entry.key) {
+                toastr.info("Please enter key!")
                 return
             }
 
@@ -403,6 +416,7 @@
                 dataType: "json",
                 success: function(data) {
                     const result = data.data
+                    $("#clinic_service_key").val(result.key)
                     $("#clinic_service_category").val(result.category)
                     $("#clinic_service_language").val(result.language)
                     $("#clinic_service_title").val(result.title)

@@ -87,6 +87,7 @@
                     <th>Icon</th>
                     <th>Language</th>
                     <th>Title</th>
+                    <th>Key</th>
                     <th>Short Description</th>
                     <th>Image</th>
                     <th>Video</th>
@@ -147,6 +148,12 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
+                            <h6 class="mb-3">Key <span class="text-danger">*</span></h6>
+                            <input id="letters_key" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <h6 class="mb-3">Short Description</h6>
                             <div class="letter_summernote" id="letters_short_desc"></div>
                         </div>
@@ -187,7 +194,6 @@
                 </div>
             </div>
             <!-- Modal footer -->
-            </form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light-primary" id="letters_save_btn">Save</button>
                 <button type="button" class="btn btn-light-danger" data-dismiss="modal">Close</button>
@@ -224,7 +230,6 @@
                 </div>
             </div>
             <!-- Modal footer -->
-            </form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light-primary" id="letters_file_save_btn">Upload</button>
                 <button type="button" class="btn btn-light-danger" data-dismiss="modal">Close</button>
@@ -345,6 +350,8 @@
             }, {
                 data: 'title'
             }, {
+                data: 'key'
+            }, {
                 data: 'short_desc'
             }, {
                 data: 'image',
@@ -393,6 +400,7 @@
 
             const entry = {
                 id: $("#letters_chosen_id").val(),
+                key: $("#letters_key").val(),
                 language: $("#letters_language").val(),
                 icon: $("#letters_icon").attr("data-value"),
                 category: $("#letters_category").val(),
@@ -407,6 +415,10 @@
 
             if (!entry.title) {
                 toastr.info("Please enter title!")
+                return
+            }
+            if (!entry.key) {
+                toastr.info("Please enter key!")
                 return
             }
 
@@ -518,6 +530,8 @@
                 dataType: "json",
                 success: function(data) {
                     const result = data.data
+                    $("#letters_key").val(result.key)
+
                     $("#letters_category").val(result.category)
                     $("#letters_language").val(result.language)
 

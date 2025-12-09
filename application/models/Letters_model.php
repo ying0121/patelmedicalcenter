@@ -27,6 +27,7 @@ class Letters_model extends CI_Model
     function addLetters($data)
     {
         $record = array(
+            'key' => $data['key'],
             'language' => $data['language'],
             'category' => $data['category'],
             'title' => $data['title'],
@@ -51,9 +52,19 @@ class Letters_model extends CI_Model
         return $this->db->get()->row_array();
     }
 
+    function chosenLettersByKey($key, $lang)
+    {
+        $this->db->select('*');
+        $this->db->from('letters');
+        $this->db->where('key', $key);
+        $this->db->where('language', $lang == "en" ? 17 : 25);
+        return $this->db->get()->row_array();
+    }
+
     function updateLetters($data)
     {
         $record = array(
+            'key' => $data['key'],
             'language' => $data['language'],
             'category' => $data['category'],
             'title' => $data['title'],

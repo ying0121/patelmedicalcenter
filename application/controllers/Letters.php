@@ -93,7 +93,6 @@ class Letters extends CI_Controller
             $filter['language'] = 25;
         }
         $data['letters'] = $this->Letters_model->readLetters($filter);
-        error_log(json_encode($data['letters']));
 
         if ($this->session->userdata('patient_id')) {
             $patient = $this->Patient_model->choose($this->session->userdata('patient_id'));
@@ -127,7 +126,7 @@ class Letters extends CI_Controller
 
     public function detail()
     {
-        $id = $_GET['s'];
+        $key = $_GET['s'];
 
         if ($this->session->userdata('language'))
             $siteLang = $this->session->userdata('language');
@@ -153,7 +152,7 @@ class Letters extends CI_Controller
         // Generate QrCode
         $vCard = "BEGIN:VCARD\n";
         $vCard .= "VERSION:3.0\n";
-        $vCard .= base_url() . "letters/detail?s=" . $id;
+        $vCard .= base_url() . "letters/detail?s=" . $key;
         $vCard .= "END:VCARD";
         $qrCode = QrCode::create($vCard)
             ->setEncoding(new Encoding('UTF-8'))
@@ -223,7 +222,7 @@ class Letters extends CI_Controller
             );
         }
 
-        $data['letter'] = $this->Letters_model->chosenLetters($id);
+        $data['letter'] = $this->Letters_model->chosenLettersByKey($key, $siteLang);
 
         $this->session->set_userdata("page_status", "letters");
 

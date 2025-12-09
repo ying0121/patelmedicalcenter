@@ -34,7 +34,7 @@
                         </div>
                         <div class="d-flex align-items-center">
                             <?php if ($contact_info["portal_show"] == 1): ?>
-                                <a href="#" class="themesflat-button font-default process px-3 mx-1 text-white"><span><?php echo $component_text['link_portal'] ?></span></a>
+                                <a href="<?php echo $contact_info["portal"] ?>" class="themesflat-button font-default process px-3 mx-1 text-white" target="_blank"><span><?php echo $component_text['link_portal'] ?></span></a>
                             <?php endif ?>
                             <?php if ($area_toggle['vault_area']): ?>
                                 <?php if ($this->session->userdata('patient_id') == '' || $this->session->userdata('patient_name') == null): ?>

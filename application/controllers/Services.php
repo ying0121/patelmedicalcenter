@@ -123,7 +123,7 @@ class Services extends CI_Controller
 
     public function detail()
     {
-        $id = $_GET['s'];
+        $key = $_GET['s'];
 
         if ($this->session->userdata('language'))
             $siteLang = $this->session->userdata('language');
@@ -149,7 +149,7 @@ class Services extends CI_Controller
         // Generate QrCode
         $vCard = "BEGIN:VCARD\n";
         $vCard .= "VERSION:3.0\n";
-        $vCard .= base_url() . "Services/detail?s=" . $id;
+        $vCard .= base_url() . "Services/detail?s=" . $key;
         $vCard .= "END:VCARD";
         $qrCode = QrCode::create($vCard)
             ->setEncoding(new Encoding('UTF-8'))
@@ -219,7 +219,7 @@ class Services extends CI_Controller
             );
         }
 
-        $data['service'] = $this->Service_model->chosenClinicService($id);
+        $data['service'] = $this->Service_model->chosenClinicServiceByKey($key, $siteLang);
 
         $this->session->set_userdata("page_status", "services");
 

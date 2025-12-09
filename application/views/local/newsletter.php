@@ -271,7 +271,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <!-- Modal body -->
-        <div class="modal-body text-center">
+        <div class="modal-body text-center" id="image-item-container">
           <?php for($i=0;$i<count($images);$i++): ?>
             <div class="image-item" id="<?php echo $images[$i]['id'] ?>">
               <img src="<?php echo base_url() ?>/assets/images/newsimg/<?php echo $images[$i]['img'] ?>" />
@@ -281,21 +281,65 @@
         </div>
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-light-primary imgsubmitbtn" data-dismiss="modal">Done</button>
-          <button type="button" class="btn btn-light-danger" data-dismiss="modal">Close</button>
+          <div class="row w-100">
+            <div class="col-12 d-flex justify-content-between">
+              <button type="button" class="btn btn-light-success" id="addimgbtn">Add New</button>
+              <div class="d-flex justify-content-start gap-2">
+                <button type="button" class="btn btn-light-primary mx-1 imgsubmitbtn" data-dismiss="modal">Done</button>
+                <button type="button" class="btn btn-light-danger mx-1" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 	</div>
   <!--- end modal -->
+  <div class="modal fade" id="newsimg_edit_modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title " style="font-weight:500;">Upload Image</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form id = "updatenewsimg" action="<?php echo base_url('local/Newsletter/updateNewsletterImage'); ?>" method="post" enctype="multipart/form-data">
+            <div class = "row">
+              <div class = 'col-md-12'>
+                <div class="form-group bmd-form-group">
+                  <label class="bmd-label-static">Newsletter Image Name</label>
+                  <input name = 'newsimg' id = 'newsimg' type="text" class="form-control">
+                </div>
+              </div>
+              <div class = 'col-md-12'>
+                <h6>newsimg Image ( 1600*434 )</h6>
+                <div class="custom-file form-group bmd-form-group">
+                  <input type="file" class="custom-file-input" id="customFile" name="file">
+                  <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary newsimgeditsubmitbtn" data-dismiss="modal">Done</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     $(document).ready(function() {
-      $('.allsmspts').prop('checked', true);
-      $('.newsletter_allpts').prop('checked', true);
-      $("#newsletter_apt_month").prop('disabled', true);
-      $("#newsletter_sms_apt_month").prop('disabled', true);
+      $('.allsmspts').prop('checked', true)
+      $('.newsletter_allpts').prop('checked', true)
+      $("#newsletter_apt_month").prop('disabled', true)
+      $("#newsletter_sms_apt_month").prop('disabled', true)
       
-      //$('#phone_list').tagsinput();
+      //$('#phone_list').tagsinput()
       const newslettertable = $('#newsletter_tb').DataTable({
         "pagingType": "full_numbers",
         "lengthMenu": [
@@ -346,10 +390,12 @@
                 } 
             }
         ]
-      });
+      })
+
       $(".newsletter_add").click(function(){
         $("#newsletter_add_modal").modal('show');
-      });
+      })
+
       $(".newsletteraddbtn").click(function(){
         var fd = new FormData();
         fd.append('en_sub',$("#newsletter_sub_en").val());
@@ -383,7 +429,8 @@
               }
             }
         });
-      });
+      })
+
       $(document).on("click",".newsletterstatus",function(){
           var tmpcheck = 0;
           if($(this).prop("checked")){
@@ -428,7 +475,8 @@
                   }
               }
           });
-      });
+      })
+
       $(document).on("click",".newsletterdeletebtn",function(){
           $("#chosen_newsletter_id").val($(this).parent().attr("idkey"));
           Swal.fire({
@@ -453,11 +501,13 @@
                   });
               }
           });
-      });
+      })
+
       $(document).on("click",".sendemailbtn",function(){
           $("#chosen_newsletter_id").val($(this).parent().attr("idkey"));
           $("#newsletter_email_modal").modal("show");
-      });
+      })
+
       $(".submitemailbtn").click(function(){
         Swal.fire({
                 title: 'Are you sure?',
@@ -512,17 +562,20 @@
             }
         });
       })
+
       $(document).on("click",".newsimgbtn",function(){
           $("#chosen_newsletter_id").val($(this).parent().attr("idkey"));
           $(".image-item").removeClass("set-item");
           $(".image-item").removeClass("active-item");
           $(".image-item[id="+$(this).attr("imgid")+"]").addClass("set-item");
           $("#avatar_edit_modal").modal('show');
-      });
+      })
+
       $(".image-item").click(function(){
         $(".image-item").removeClass('active-item');
         $(this).addClass('active-item');
-      });
+      })
+
       $(".imgsubmitbtn").click(function(){
         $.ajax ({
             url: '<?php echo base_url() ?>local/newsletter/addimgtonews',
@@ -550,17 +603,19 @@
             }
         });
       })
+
       $(document).on("click",".sendsmsbtn",function(){
           $("#chosen_newsletter_id").val($(this).parent().attr("idkey"));
           $("#newsletter_phone_modal").modal("show");
-      });
+      })
+
       $(".newsletter_allpts").change(function(){
           if($(".newsletter_allpts").is(':checked'))
             $("#newsletter_apt_month").prop('disabled', true);
           else
             $("#newsletter_apt_month").prop('disabled', false);
 
-      });
+      })
 
       $(".allsmspts").change(function(){
           if($(".allsmspts").is(':checked'))
@@ -568,61 +623,67 @@
           else
             $("#newsletter_sms_apt_month").prop('disabled', false);
 
-      });
+      })
 
       $(".submitphonebtn").click(function(){
-            Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    
-                    confirmButtonText: 'Yes, send it!'
-            }).then((result) => {
-                if (result.value) {
-                    $.ajax ({
-                        url: '<?php echo base_url() ?>local/newsletter/sendsms',
-                        method: "POST",
-                        data: {id:$("#chosen_newsletter_id").val(),
-                              lang:$(".phonelangnewsletter:checked").val(),
-                              all:$(".allsmspts").is(':checked'),
-                              apt_months:$("#newsletter_sms_apt_month").val()
-                        },
-                        dataType: "text",
-                        success: function (data) {
-                            if(data == "ok"){
-                                $.notify({
-                                    icon: "add_alert",
-                                    message: "Action Successfully"
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          
+          confirmButtonText: 'Yes, send it!'
+        }).then((result) => {
+          if (result.value) {
+            $.ajax ({
+              url: '<?php echo base_url() ?>local/newsletter/sendsms',
+              method: "POST",
+              data: {id:$("#chosen_newsletter_id").val(),
+                    lang:$(".phonelangnewsletter:checked").val(),
+                    all:$(".allsmspts").is(':checked'),
+                    apt_months:$("#newsletter_sms_apt_month").val()
+              },
+              dataType: "text",
+              success: function (data) {
+                if(data == "ok"){
+                    $.notify({
+                        icon: "add_alert",
+                        message: "Action Successfully"
 
-                                    }, {
-                                    type: 'info',
-                                    timer: 1000,
-                                    placement: {
-                                        from: 'top',
-                                        align: 'center'
-                                    }
-                                });
-                            }
-                            else{
-                                $.notify({
-                                    icon: "add_alert",
-                                    message: "Action failed"
-
-                                    }, {
-                                    type: 'info',
-                                    timer: 1000,
-                                    placement: {
-                                        from: 'top',
-                                        align: 'center'
-                                    }
-                                });
-                            }
+                        }, {
+                        type: 'info',
+                        timer: 1000,
+                        placement: {
+                            from: 'top',
+                            align: 'center'
                         }
                     });
+                } else {
+                  $.notify({
+                      icon: "add_alert",
+                      message: "Action failed"
+                    }, {
+                    type: 'info',
+                    timer: 1000,
+                    placement: {
+                      from: 'top',
+                      align: 'center'
+                    }
+                  });
                 }
+              }
             });
+          }
         });
-    });
+      })
+
+      $("#addimgbtn").click(function () {
+        $("#newsimg_edit_modal").modal("show")
+      })
+
+      $(".newsimgeditsubmitbtn").click(function() {
+        $("#updatenewsimg").submit()
+      })
+    })
   </script>
 </html>

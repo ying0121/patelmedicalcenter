@@ -1,6 +1,17 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 date_default_timezone_set('America/New_York');
+
+
+function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
 class Newsletter extends CI_Controller
 {
 
@@ -10,13 +21,14 @@ class Newsletter extends CI_Controller
 		$this->load->model('ContactInfo_model');
 		$this->load->model('AreaToggle_model');
 		$this->load->model('Newsletter_model');
+		$this->load->model('Settings_model');
 		$this->load->helper('url');
-
-		if ($this->session->userdata('userid') == '' || $this->session->userdata('userid') == null)
-			redirect('admin', 'refresh');
 	}
 	public function index()
 	{
+		if ($this->session->userdata('userid') == '' || $this->session->userdata('userid') == null)
+			redirect('admin', 'refresh');
+
 		$data['sideitem'] = 'newsletter';
 		$data['contact_info'] = $this->ContactInfo_model->read();
 		$data['area_toggle'] = $this->AreaToggle_model->read();
@@ -195,7 +207,7 @@ class Newsletter extends CI_Controller
 
 		$result = $this->Newsletter_model->addimgtonews($id, $img);
 		if ($result)
-			echo json_encode($result);
+			echo "ok";
 		else {
 			echo "failed";
 		}
@@ -269,4 +281,52 @@ class Newsletter extends CI_Controller
 			echo json_encode(array('data' => []));
 		}
 	}
+
+	public function getNewsletterImage()
+    {
+        $result = $this->Settings_model->getnewsimg();
+        if($result){
+            echo json_encode(array('data' => $result));
+        }
+		else{
+			echo json_encode(array('data' => []));
+		}
+    }
+
+    public function updateNewsletterImage()
+	{
+		$name = $this->input->post('newsimg');
+        $filename = generateRandomString(10);
+		$config['upload_path']          = './assets/images/newsimg/';
+		$config['allowed_types']        = 'gif|jpg|png';
+		$config['max_size']             = 20480000;
+		$config['max_width']            = 1024*5;
+		$config['max_height']           = 768*5;
+		$config['file_name'] 			= $filename;
+		$this->load->library('upload', $config);
+		if ( ! $this->upload->do_upload('file')) {
+			$error = array('error' => $this->upload->display_errors());
+			redirect('local/Setting', 'refresh');
+		} else {
+			$data = array('upload_data' => $this->upload->data());
+			$result = $this->Settings_model->updatenewsimg($name,$data['upload_data']['orig_name']);
+			if($result) {
+				redirect('local/newsletter', 'refresh');
+			}
+		}
+	}
+
+    public function deleteNewsletterImage()
+    {
+        $id = $this->input->post('id');
+
+		$chosen = $this->Newsletter_model->chooseNewsletterImage($id);
+        if ($chosen['img'])
+            unlink($_SERVER["DOCUMENT_ROOT"] . "/assets/images/newsimg/" . $chosen['img']);
+
+        $result = $this->Settings_model->deletenewsimg($id);
+        if($result){
+            echo "ok";
+        }
+    }
 }

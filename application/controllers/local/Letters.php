@@ -43,6 +43,7 @@ class Letters extends CI_Controller
     function addLetters()
     {
         $data = array(
+            'key' => $_POST['key'],
             'language' => $_POST['language'],
             'icon' => $_POST['icon'],
             'category' => $_POST['category'],
@@ -65,6 +66,7 @@ class Letters extends CI_Controller
     {
         $data = array(
             'id' => $_POST['id'],
+            'key' => $_POST['key'],
             'language' => $_POST['language'],
             'icon' => $_POST['icon'],
             'category' => $_POST['category'],

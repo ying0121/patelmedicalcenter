@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <div class = "row">
                     <div class = 'col-md-12'>
-                        <h6>Photo (1920 x 1080)</h6>
+                        <h6>Photo (1920 x 540)</h6>
                         <div class="custom-file form-group">
                             <input type="file" class="custom-file-input" id="upload_image_img" name="upload_image_img">
                             <label class="custom-file-label" for="upload_image_img">Choose file</label>
@@ -42,7 +42,7 @@
             const objectURL = URL.createObjectURL(img[0])
 
             imgObj.onload = function () {
-                if (imgObj.width <= 1920 && imgObj.height <= 1080) {
+                if (imgObj.width <= 1920 && imgObj.height <= 540) {
                     fd.append('id', id)
                     fd.append('img',img[0])
 
@@ -67,7 +67,7 @@
                     // Free memory
                     URL.revokeObjectURL(objectURL)
                 } else {
-                    toastr.warning("The photo is too large. please select 1920 x 1080 size image!")
+                    toastr.warning("The photo is too large. please select 1920 x 540 size image!")
                 }
             }
 

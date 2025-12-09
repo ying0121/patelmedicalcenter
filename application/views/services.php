@@ -21,32 +21,36 @@
         <div class="container mb-4">
             <div class="row">
                 <?php for ($i = 0; $i < count($services); $i++): ?>
-                    <div class="col-md-6 col-lg-4 p-2">
-                        <div class="card">
-                            <div class="w-100 bg-image hover-zoom">
-                                <img class="img-fluid" src="<?php echo base_url(); ?>assets/service/image/<?php echo $services[$i]["image"]; ?>" alt="<?php echo $services[$i]["title"]; ?>" width="100%" />
-                                <div class="mask">
-                                    <div class="d-flex justify-content-end align-items-center h-25 px-3">
-                                        <?php if ($services[$i]["cost"] > 0): ?>
-                                            <span class="badge <?php if ($services[$i]["status"] == 0) echo "bg-secondary"; else echo "badge-danger"; ?> fs-6">$ <?php echo $services[$i]["cost"]; ?></span>
-                                        <?php else: ?>
-                                            <span class="badge <?php if ($services[$i]["status"] == 0) echo "bg-secondary"; else echo "badge-success"; ?> fs-6"><?php echo $component_text["c_eligible_health_plan"]; ?></span>
-                                        <?php endif ?>
+                    <?php if ($services[$i]["status"] == 1): ?>
+                        <div class="col-md-6 col-lg-4 p-2">
+                            <div class="card">
+                                <a href="<?php echo base_url(); ?>Services/detail?s=<?php echo $services[$i]['key']; ?>" target="_blank">                                    
+                                    <div class="w-100 bg-image hover-zoom">
+                                        <img class="img-fluid" src="<?php echo base_url(); ?>assets/service/image/<?php echo $services[$i]["image"]; ?>" alt="<?php echo $services[$i]["title"]; ?>" width="100%" />
+                                        <div class="mask">
+                                            <div class="d-flex justify-content-end align-items-center h-25 px-3">
+                                                <?php if ($services[$i]["cost"] > 0): ?>
+                                                    <span class="badge badge-success fs-4">$ <?php echo $services[$i]["cost"]; ?></span>
+                                                <?php else: ?>
+                                                    <span class="badge badge-success fs-6"><?php echo $component_text["c_eligible_health_plan"]; ?></span>
+                                                <?php endif ?>
+                                            </div>
+                                        </div>
                                     </div>
+                                </a>
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo $services[$i]["title"]; ?></h5>
+                                    <p class="card-text"><?php echo $services[$i]["short_desc"]; ?></p>
+                                </div>
+                                <div class="card-footer d-flex justify-content-around align-items-center <?php if ($services[$i]["status"] == 0) echo "bg-secondary"; ?>">
+                                    <button data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#payment-modal" class="d-none" id="show-service-payment-modal-btn"></button>
+                                    <button data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#service_request_modal" class="d-none" id="show-service-modal-btn"></button>
+                                    <a href="javascript:;" class="text-primary service_request fs-5" data-id="<?php echo $services[$i]['id']; ?>" data-title="<?php echo $services[$i]['title']; ?>"><?php echo $component_text['t_request'] ?></a>
+                                    <a href="<?php echo base_url(); ?>Services/detail?s=<?php echo $services[$i]['key']; ?>" class="fs-5 text-info" target="_blank"><?php echo $component_text['btn_read_more']; ?></a>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $services[$i]["title"]; ?></h5>
-                                <p class="card-text"><?php echo $services[$i]["short_desc"]; ?></p>
-                            </div>
-                            <div class="card-footer d-flex justify-content-around align-items-center <?php if ($services[$i]["status"] == 0) echo "bg-secondary"; ?>">
-                                <button data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#payment-modal" class="d-none" id="show-service-payment-modal-btn"></button>
-                                <button data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#service_request_modal" class="d-none" id="show-service-modal-btn"></button>
-                                <a href="javascript:;" class="text-primary service_request fs-5" data-id="<?php echo $services[$i]['id']; ?>" data-title="<?php echo $services[$i]['title']; ?>"><?php echo $component_text['t_request'] ?></a>
-                                <a href="<?php echo base_url(); ?>Services/detail?s=<?php echo $services[$i]['id']; ?>" class="fs-5 text-info" target="_blank"><?php echo $component_text['btn_read_more']; ?></a>
-                            </div>
                         </div>
-                    </div>
+                    <?php endif ?>
                 <?php endfor ?>
             </div>
         </div>

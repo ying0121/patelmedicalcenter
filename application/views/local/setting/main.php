@@ -74,6 +74,11 @@
                                             Payment
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#newsletterimg" data-toggle="tab">
+                                            Newsletter Images
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -109,6 +114,9 @@
                                 </div>
                                 <div class="tab-pane" id="payment">
                                     <?php include('payment.php') ?>
+                                </div>
+                                <div class="tab-pane" id="newsletterimg">
+                                    <?php include('newsletterimg.php') ?>
                                 </div>
                             </div>
                         </div>

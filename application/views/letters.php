@@ -21,32 +21,34 @@
         <div class="container mb-4">
             <div class="row">
                 <?php for ($i = 0; $i < count($letters); $i++): ?>
-                    <div class="col-md-4 col-lg-3 p-2">
-                        <div class="card">
-                            <div class="w-100">
-                                <div class="text-center mt-4">
-                                    <i class="fa fa-<?php echo $letters[$i]['icon']; ?>" style="font-size: 120px;"></i>
+                    <?php if ($letters[$i]["status"] == 1): ?>
+                        <div class="col-md-4 col-lg-3 p-2">
+                            <div class="card">
+                                <div class="w-100">
+                                    <div class="text-center mt-4">
+                                        <i class="fa fa-<?php echo $letters[$i]['icon']; ?>" style="font-size: 120px;"></i>
+                                    </div>
+                                    <div class="d-flex justify-content-end align-items-center h-25 px-3">
+                                        <?php if ($letters[$i]["cost"] > 0): ?>
+                                            <span class="badge <?php if ($letters[$i]["status"] == 0) echo "bg-secondary"; else echo "badge-danger"; ?> fs-6">$ <?php echo $letters[$i]["cost"]; ?></span>
+                                        <?php else: ?>
+                                            <span class="badge <?php if ($letters[$i]["status"] == 0) echo "bg-secondary"; else echo "badge-success"; ?> fs-6"><?php echo $component_text["c_eligible_health_plan"]; ?></span>
+                                        <?php endif ?>
+                                    </div>
                                 </div>
-                                <div class="d-flex justify-content-end align-items-center h-25 px-3">
-                                    <?php if ($letters[$i]["cost"] > 0): ?>
-                                        <span class="badge <?php if ($letters[$i]["status"] == 0) echo "bg-secondary"; else echo "badge-danger"; ?> fs-6">$ <?php echo $letters[$i]["cost"]; ?></span>
-                                    <?php else: ?>
-                                        <span class="badge <?php if ($letters[$i]["status"] == 0) echo "bg-secondary"; else echo "badge-success"; ?> fs-6"><?php echo $component_text["c_eligible_health_plan"]; ?></span>
-                                    <?php endif ?>
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo $letters[$i]["title"]; ?></h5>
+                                    <p class="card-text"><?php echo $letters[$i]["short_desc"]; ?></p>
                                 </div>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $letters[$i]["title"]; ?></h5>
-                                <p class="card-text"><?php echo $letters[$i]["short_desc"]; ?></p>
-                            </div>
-                            <div class="card-footer d-flex justify-content-around align-items-center">
-                                <button data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#payment-modal" class="d-none" id="show-letter-payment-modal-btn"></button>
-                                <button data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#letter_request_modal" class="d-none" id="show-letter-modal-btn"></button>
-                                <a href="javascript:;" class="text-primary letter_request fs-5" data-id="<?php echo $letters[$i]['id']; ?>" data-title="<?php echo $letters[$i]['title']; ?>"><?php echo $component_text['t_request'] ?></a>
-                                <a href="<?php echo base_url(); ?>Letters/detail?s=<?php echo $letters[$i]['id']; ?>" class="fs-5 text-info" target="_blank"><?php echo $component_text['btn_read_more']; ?></a>
+                                <div class="card-footer d-flex justify-content-around align-items-center">
+                                    <button data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#payment-modal" class="d-none" id="show-letter-payment-modal-btn"></button>
+                                    <button data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#letter_request_modal" class="d-none" id="show-letter-modal-btn"></button>
+                                    <a href="javascript:;" class="text-primary letter_request fs-5" data-id="<?php echo $letters[$i]['id']; ?>" data-title="<?php echo $letters[$i]['title']; ?>"><?php echo $component_text['t_request'] ?></a>
+                                    <a href="<?php echo base_url(); ?>Letters/detail?s=<?php echo $letters[$i]['key']; ?>" class="fs-5 text-info" target="_blank"><?php echo $component_text['btn_read_more']; ?></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <?php endif ?>
                 <?php endfor ?>
             </div>
         </div>

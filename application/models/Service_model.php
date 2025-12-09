@@ -31,6 +31,7 @@ class Service_model extends CI_Model
     function addClinicService($data)
     {
         $record = array(
+            'key' => $data['key'],
             'language' => $data['language'],
             'category' => $data['category'],
             'title' => $data['title'],
@@ -55,9 +56,19 @@ class Service_model extends CI_Model
         return $this->db->get()->row_array();
     }
 
+    function chosenClinicServiceByKey($key, $lang)
+    {
+        $this->db->select('*');
+        $this->db->from('clinic_services');
+        $this->db->where('key', $key);
+        $this->db->where("language", $lang == "en" ? 17 : 25);
+        return $this->db->get()->row_array();
+    }
+
     function updateClinicService($data)
     {
         $record = array(
+            'key' => $data["key"],
             'language' => $data['language'],
             'category' => $data['category'],
             'title' => $data['title'],
