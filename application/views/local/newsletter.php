@@ -109,7 +109,7 @@
 </body>
   <!-- The Modal -->
 	<div class="modal fade" id="newsletter_add_modal">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title ">Add Newsletter</h4>
@@ -138,7 +138,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <h6>Date</h6>
-                <input type="text" name = 'newsletter_date' id = 'newsletter_date' class="form-control datepicker">
+                <input type="date" name = 'newsletter_date' id = 'newsletter_date' class="form-control">
               </div>
             </div>
           </div>
@@ -346,6 +346,7 @@
         [10, 25, 50, -1],
         [10, 25, 50, "All"]
         ],
+        ordering: false,
         responsive: true,
         language: {
             search: "_INPUT_",
@@ -359,7 +360,12 @@
             { data: 'en_sub'},
             { data: 'link'},
             { data: 'author'},
-            { data: 'published'},
+            { 
+              data: 'published',
+              render: function (data, type, row) {
+                return new Date(data).toLocaleDateString()
+              }
+            },
             { data: 'status',
                 render: function (data, type, row) {
                     return `

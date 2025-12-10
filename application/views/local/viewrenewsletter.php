@@ -19,13 +19,13 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <h6>Author</h6>
-                                            <input name = 'newsletter_author' id = 'newsletter_author' class="form-control" type="text" required />
+                                            <input name='newsletter_author' id='newsletter_author' class="form-control" type="text" required />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <h6>Date</h6>
-                                            <input type="text" name = 'newsletter_date' id = 'newsletter_date' class="form-control datepicker">
+                                            <input type="date" name = 'newsletter_date' id = 'newsletter_date' class="form-control w-200px" />
                                         </div>
                                     </div>
                                 </div>
@@ -79,12 +79,12 @@
                                         </div>
                                         <div class="form-group" style="display:inline-block!important">
                                             <label>From</label>
-                                            <input style="width:50px" name = 'newsletter_age_from' id = 'newsletter_age_from' class="form-control" type="number" />
+                                            <input name = 'newsletter_age_from' id = 'newsletter_age_from' class="form-control w-75px" type="number" min="0" max="100" />
                                         </div>
                                         <span>~</span>
                                         <div class="form-group" style="display:inline-block!important">
                                             <label>To</label>
-                                            <input style="width:50px" name = 'newsletter_age_to' id = 'newsletter_age_to' class="form-control" type="number" />
+                                            <input name = 'newsletter_age_to' id = 'newsletter_age_to' class="form-control w-75px" type="number" min="0" max="100" />
                                         </div>
                                     </div>
                                 </div>
@@ -127,7 +127,6 @@
                 </div>
             </div>
         </div>
-        
     </body>
     <script>
         $('#newsletter_desc_en').summernote({
@@ -144,7 +143,8 @@
         $("#newsletter_date").val("<?php echo $result['published']; ?>");
         $("#newsletter_desc_en").summernote("code",`<?php echo $result['en_desc']; ?>`);
         $("#newsletter_desc_es").summernote("code",`<?php echo $result['es_desc']; ?>`);
-        $('#newsletter_med_cond').val(JSON.parse('<?php echo $result['med_cond']; ?>'));
+        const medCond = `<?php echo $result['med_cond']; ?>`;
+        $('#newsletter_med_cond').val(JSON.parse(medCond ? medCond : "[]"));
         $('#newsletter_age_all_checkbox').prop('checked', <?php echo $result['age_all']; ?>);
         $("#newsletter_age_from").val("<?php echo $result['age_from']; ?>");
         $("#newsletter_age_to").val("<?php echo $result['age_to']; ?>");
@@ -195,8 +195,7 @@
                 }
 
             });
-            $("#newsletter_med_cond").change(()=>{loadEducationMateiral();});
-
+            $("#newsletter_med_cond").change(()=>{loadEducationMateiral()});
         });
 
         loadEducationMateiral();
@@ -213,7 +212,6 @@
                 dataType: "text",
                 success: function (data) {
                     var items = JSON.parse(data);
-                    console.log(items);
                     $('#newsletter_education_material').empty();
                     $.each(items.data, function (i, item) {
                         
@@ -223,8 +221,8 @@
                         }));
                     });
 
-                    $('#newsletter_education_material').val(JSON.parse('<?php echo $result['edu_material']; ?>'));
-                    $('#newsletter_education_material').data().selectpicker.refresh();
+                    const eduMat = `<?php echo $result['edu_material']; ?>`
+                    $('#newsletter_education_material').val(JSON.parse(eduMat ? eduMat : "[]"));
                 }
             }); 
         }
