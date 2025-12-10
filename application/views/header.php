@@ -28,7 +28,7 @@
                             <?php if ($contact_info['email']): ?>
                                 <div>
                                     <span class="d-none d-md-inline">&nbsp;&nbsp;|&nbsp;&nbsp;</span><i class="fa fa-envelope text-success fs-5"></i>&nbsp;:&nbsp;
-                                    <a href="mailto:<?php echo $contact_info['email'] ?>" class="text-white"><?php echo $contact_info['email'] ?></a>
+                                    <a href="<?php echo base_url(); ?>Contact" class="text-white"><?php echo $contact_info['email'] ?></a>
                                 </div>
                             <?php endif ?>
                         </div>
@@ -135,21 +135,21 @@
                     if ($cookie_data && ($cookie_data['title'] == $alerts[0]['title'] && $cookie_data['id'] == $alerts[0]['id']) && $alerts[0]['type'] == 'once'):
                     ?>
                     <?php elseif (date('Y-m-d H:i:s', strtotime($alerts[0]['end'])) >= date('Y-m-d H:i:s') && $alerts[0]['status'] == 1): ?>
-                        <p class="h4 text-danger fw-bold mb-0">
+                        <p class="h4 text-white fw-bold mb-0">
                             <?php if (count($alerts) > 0) {
                                 if ($this->session->userdata('language') == "en") echo $alerts[0]['title'];
                                 else echo $alerts[0]['title_es'];
                             } ?>
                         </p>
                         <div class="d-flex justify-content-center justify-content-md-start align-items-center gap-3">
-                            <span class="text-danger">
+                            <span class="text-white">
                                 <?php if (count($alerts) > 0) {
                                     if ($this->session->userdata('language') == "en") echo $alerts[0]['message'];
                                     else echo $alerts[0]['message_es'];
                                 } ?>
                             </span>
                             <div class="btn-group">
-                                <button class="btn btn-link d-none d-sm-inline" type="button" data-mdb-dropdown-init data-mdb-ripple-init aria-expanded="false">
+                                <button class="btn btn-link d-none d-sm-inline text-white" type="button" data-mdb-dropdown-init data-mdb-ripple-init aria-expanded="false">
                                     <?php echo $component_text['btn_read_more'] ?> >>
                                 </button>
                                 <ul class="dropdown-menu p-3 rounded rounded-3" style="background-color: #303030C0; min-width: 420px;">

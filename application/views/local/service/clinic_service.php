@@ -17,6 +17,7 @@
         <div class="col-12">
             <table class="table w-100" id="clinic_service_table">
                 <thead>
+                    <th>Order</th>
                     <th>Title</th>
                     <th>Key</th>
                     <th>Short Description</th>
@@ -45,10 +46,16 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-6">
                         <div class="form-group">
                             <h6 class="mb-3">Key <span class="text-danger">*</span></h6>
                             <input id="clinic_service_key" class="form-control" type="text" />
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <h6 class="mb-3">Order <span class="text-danger"></span></h6>
+                            <input id="clinic_service_order" class="form-control" type="number" min="0" />
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -233,6 +240,8 @@
                 }
             },
             "columns": [{
+                data: 'order'
+            }, {
                 data: 'title'
             }, {
                 data: 'key'
@@ -287,6 +296,7 @@
             const entry = {
                 id: $("#clinic_service_chosen_id").val(),
                 key: $("#clinic_service_key").val(),
+                order: $("#clinic_service_order").val() ? $("#clinic_service_order").val() : 9999,
                 language: $("#clinic_service_language").val(),
                 category: $("#clinic_service_category").val(),
                 title: $("#clinic_service_title").val(),
@@ -417,6 +427,7 @@
                 success: function(data) {
                     const result = data.data
                     $("#clinic_service_key").val(result.key)
+                    $("#clinic_service_order").val(result.order)
                     $("#clinic_service_category").val(result.category)
                     $("#clinic_service_language").val(result.language)
                     $("#clinic_service_title").val(result.title)

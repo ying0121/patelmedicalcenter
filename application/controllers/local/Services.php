@@ -33,6 +33,7 @@ class Services extends CI_Controller
     {
         $data = array(
             'key' => $_POST['key'],
+            'order' => $_POST['order'],
             'language' => $_POST['language'],
             'category' => $_POST['category'],
             'title' => $_POST['title'],
@@ -57,6 +58,7 @@ class Services extends CI_Controller
         $data = array(
             'id' => $_POST['id'],
             'key' => $_POST['key'],
+            'order' => $_POST['order'],
             'language' => $_POST['language'],
             'category' => $_POST['category'],
             'title' => $_POST['title'],

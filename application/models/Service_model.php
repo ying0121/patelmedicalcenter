@@ -19,6 +19,7 @@ class Service_model extends CI_Model
         if ($filter['language'] > 0) {
             $this->db->where('clinic_services.language', $filter['language']);
         }
+        $this->db->order_by("order", "asc");
 
         return $this->db->get()->result_array();
     }
@@ -32,6 +33,7 @@ class Service_model extends CI_Model
     {
         $record = array(
             'key' => $data['key'],
+            'order' => $data['order'],
             'language' => $data['language'],
             'category' => $data['category'],
             'title' => $data['title'],
@@ -69,6 +71,7 @@ class Service_model extends CI_Model
     {
         $record = array(
             'key' => $data["key"],
+            'order' => $data["order"],
             'language' => $data['language'],
             'category' => $data['category'],
             'title' => $data['title'],

@@ -83,13 +83,13 @@
                                 </div>
                                 <div class="col-md-6 contactpttype-patient mb-2">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="contactpttype" id="contactpttype1" value="2" />
+                                        <input class="form-check-input" type="radio" name="contactpttype" id="contactpttype1" value="2" checked />
                                         <label class="form-check-label" for="contactpttype1"> <?php echo $component_text['t_contact_option_new'] ?> </label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 contactpttype-institution mb-2">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="contactpttype" id="contactpttype2" value="3" checked />
+                                        <input class="form-check-input" type="radio" name="contactpttype" id="contactpttype2" value="3" />
                                         <label class="form-check-label" for="contactpttype2"> <?php echo $component_text['t_contact_option_patient'] ?> </label>
                                     </div>
                                 </div>
@@ -417,7 +417,10 @@
             <div class="modal-content">
                 <input type="hidden" id="service_name" />
                 <div class="modal-header">
-                    <p class="h4 m-0 mx-1" id="service_title"><?php echo $component_text['t_request_service']; ?></p>
+                    <div>
+                        <p class="h4 m-0 mx-1 mb-1" id="service_title"><?php echo $component_text['t_request_service']; ?></p>
+                        <div id="service_request_price"></div>
+                    </div>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -537,6 +540,7 @@
                     const cost = parseFloat(res.cost)
                     if (cost > 0) { // payment modal
                         $("#payment-modal-title").text(title + ` - $${cost}`)
+                        $("#service_request_price").html(`<span class="badge badge-success fs-4">$ <?php echo $services[$i]["cost"]; ?></span>`)
 
                         $("#show-service-payment-modal-btn").click()
 
@@ -550,6 +554,7 @@
                         }]
                         initialize()
                     } else { // request modal
+                        $("#service_request_price").html(`<span class="badge badge-success fs-6"><?php echo $component_text["c_eligible_health_plan"]; ?></span>`)
                         // if login
                         const isLogged = "<?php echo $this->session->userdata('patient_id') > 0 ?>"
                         if (isLogged == 1) {

@@ -49,13 +49,13 @@
                             </div>
                             <div class="col-md-6 contactpttype-patient mb-2">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="contactpttype" id="contactpttype1" value="2" />
+                                    <input class="form-check-input" type="radio" name="contactpttype" id="contactpttype1" value="2" checked />
                                     <label class="form-check-label" for="contactpttype1"> <?php echo $component_text['t_contact_option_new'] ?> </label>
                                 </div>
                             </div>
                             <div class="col-md-6 contactpttype-institution mb-2">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="contactpttype" id="contactpttype2" value="3" checked />
+                                    <input class="form-check-input" type="radio" name="contactpttype" id="contactpttype2" value="3" />
                                     <label class="form-check-label" for="contactpttype2"> <?php echo $component_text['t_contact_option_patient'] ?> </label>
                                 </div>
                             </div>

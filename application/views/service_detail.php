@@ -24,7 +24,12 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="w-100 d-flex justify-content-center justify-content-md-start align-items-center flex-wrap gap-4 mb-3">
+                    <div class="w-100 d-flex justify-content-center justify-content-md-start align-items-center flex-wrap gap-3 mb-3">
+                        <?php if ($service["cost"] == 0): ?>
+                            <div class="w-100 fs-2"><?php echo $component_text["c_eligible_health_plan"]; ?></div>
+                        <?php else: ?>
+                            <div class="w-100 fs-2">$ <?php echo $service['cost']; ?></div>
+                        <?php endif ?>
                         <button data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#payment-modal" class="d-none" id="show-service-payment-modal-btn"></button>
                         <button data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#service_request_modal" class="d-none" id="show-service-modal-btn"></button>
                         <button data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#service_friend_modal" class="d-none" id="show-service-friend-modal-btn"></button>
@@ -49,7 +54,10 @@
             <div class="modal-content">
                 <input type="hidden" id="service_name" />
                 <div class="modal-header">
-                    <p class="h4 m-0 mx-1" id="service_title"><?php echo $component_text['t_request_service']; ?></p>
+                    <div>
+                        <p class="h4 m-0 mx-1 mb-1" id="service_title"><?php echo $component_text['t_request_service']; ?></p>
+                        <div id="service_request_price"></div>
+                    </div>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -208,6 +216,7 @@
                     const cost = parseFloat(res.cost)
                     if (cost > 0) { // payment modal
                         $("#payment-modal-title").text(title + ` - $${cost}`)
+                        $("#service_request_price").html(`<span class="badge badge-success fs-4">$ <?php echo $services[$i]["cost"]; ?></span>`)
 
                         $("#show-service-payment-modal-btn").click()
 
@@ -221,6 +230,7 @@
                         }]
                         initialize()
                     } else { // request modal
+                        $("#service_request_price").html(`<span class="badge badge-success fs-6"><?php echo $component_text["c_eligible_health_plan"]; ?></span>`)
                         // if login
                         const isLogged = "<?php echo $this->session->userdata('patient_id') > 0 ?>"
                         if (isLogged == 1) {
