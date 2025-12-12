@@ -29,7 +29,8 @@
     <!-- Main -->
     <main>
         <?php if (isset($result["img"])): ?>
-            <div id="header-baner" style="background-image: url('<?php echo base_url() ?>assets/images/newsimg/<?php echo $result['img'] ?>'); height: 450px;">
+            <div id="header-baner">
+                <img src="<?php echo base_url() ?>assets/images/newsimg/<?php echo $result['img'] ?>" width="100%" />
             </div>
         <?php endif ?>
         <!-- Main Content -->
