@@ -361,7 +361,7 @@
         </div>
       </div>
     </div>
-</div>
+  </div>
 
   <script>
     $(document).ready(function() {
@@ -717,8 +717,97 @@
         $("#newsimg_edit_modal").modal("show")
       })
 
-      $(".newsimgeditsubmitbtn").click(function() {
-        $("#updatenewsimg").submit()
+      $("#newsimgeditsubmitbtn").click(function() {
+        var backgroundFile = $("#customFile")[0].files[0]
+        var validationResults = {
+          background: { checked: !backgroundFile, valid: true, error: "" },
+        }
+        var submitted = false
+
+        // Function to check if all validations are complete
+        function checkAndSubmit() {
+          if (submitted) return // Prevent double submission
+          var allChecked = true
+          var hasErrors = false
+          var errorMessages = []
+
+          if (backgroundFile && !validationResults.background.checked) {
+            allChecked = false
+          }
+
+          if (!allChecked) {
+            return // Wait for all validations to complete
+          }
+
+          // Check if there are any validation errors
+          if (backgroundFile && !validationResults.background.valid) {
+            hasErrors = true
+            errorMessages.push(validationResults.background.error)
+          }
+
+          if (hasErrors) {
+            toastr.error(errorMessages.join("\n"))
+            return
+          }
+
+          submitted = true // Mark as submitted to prevent double submission
+
+          // All validations passed, proceed with submission
+          var formData = new FormData()
+          formData.append("newsimg", $("#newsimg").val())
+          if (backgroundFile) {
+            formData.append("file", backgroundFile)
+          }
+
+          $.ajax({
+            url: "<?php echo base_url() ?>local/Newsletter/updateNewsletterImage",
+            method: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+              if(data == "ok") {
+                toastr.success('Uploaded Successfully!')
+              } else {
+                toastr.error('Upload Failed!')
+              }
+              $("#newsimg_edit_modal").modal('hide')
+            },
+            error: function() {
+              toastr.error('An error was occurred on the server!')
+            }
+          })
+        }
+
+        // Validate background image if file is selected
+        if (backgroundFile) {
+          const bgImgObj = new Image()
+          const bgObjectURL = URL.createObjectURL(backgroundFile)
+          
+          bgImgObj.onload = function() {
+            if (bgImgObj.width > 1600 || bgImgObj.height > 434) {
+              validationResults.background.valid = false
+              validationResults.background.error = "Background Image must be 1600 x 434 pixels or less. Current size: " + bgImgObj.width + " x " + bgImgObj.height
+            } else {
+              validationResults.background.valid = true
+            }
+            validationResults.background.checked = true
+            URL.revokeObjectURL(bgObjectURL)
+            checkAndSubmit()
+          }
+          
+          bgImgObj.onerror = function() {
+            validationResults.background.valid = false
+            validationResults.background.error = "Failed to load background image"
+            validationResults.background.checked = true
+            URL.revokeObjectURL(bgObjectURL)
+            checkAndSubmit()
+          }
+          
+          bgImgObj.src = bgObjectURL
+        }
+
+        checkAndSubmit()
       })
 
       $(document).on("click", ".metaimgbtn", function () {
@@ -728,6 +817,31 @@
         $(".custom-file-label").html('Choose file')
         $("#metaImageSize").hide()
         $("#metaimag-upload-modal").modal("show")
+      })
+
+      $("#customFile").on("change", function() {
+        var fileName = $(this).val().split("\\").pop()
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName)
+        
+        var file = this.files[0]
+        if (file) {
+          const imgObj = new Image()
+          const objectURL = URL.createObjectURL(file)
+          
+          imgObj.onload = function() {
+            var sizeText = "Image size: " + imgObj.width + " x " + imgObj.height
+            if (imgObj.width <= 1600 && imgObj.height <= 434) {
+              $("#backgroundImageSize").removeClass("text-danger").addClass("text-success").text(sizeText + " ✓").show()
+            } else {
+              $("#backgroundImageSize").removeClass("text-success").addClass("text-danger").text(sizeText + " (Required: 1600 x 434 or less)").show()
+            }
+            URL.revokeObjectURL(objectURL)
+          }
+          
+          imgObj.src = objectURL
+        } else {
+          $("#backgroundImageSize").hide()
+        }
       })
 
       // Display filename and image size when meta image file is selected
