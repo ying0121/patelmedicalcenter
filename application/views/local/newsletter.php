@@ -295,6 +295,36 @@
     </div>
 	</div>
   <!--- end modal -->
+  <div class="modal fade" id="metaimag-upload-modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title " style="font-weight:500;">Upload Image</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="row">
+            <div class='col-md-12'>
+              <h6>Meta Image ( 640 x 640 )</h6>
+              <div class="custom-file form-group bmd-form-group">
+                <input type="file" class="custom-file-input" id="metaFile" name="file">
+                <label class="custom-file-label" for="metaFile">Choose file</label>
+              </div>
+              <small id="metaImageSize" class="form-text" style="display:none;"></small>
+            </div>
+          </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="metaImageSubmitBtn">Done</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="modal fade" id="newsimg_edit_modal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -305,32 +335,33 @@
         </div>
         <!-- Modal body -->
         <div class="modal-body">
-          <form id = "updatenewsimg" action="<?php echo base_url('local/Newsletter/updateNewsletterImage'); ?>" method="post" enctype="multipart/form-data">
-            <div class = "row">
-              <div class = 'col-md-12'>
-                <div class="form-group bmd-form-group">
-                  <label class="bmd-label-static">Newsletter Image Name</label>
-                  <input name = 'newsimg' id = 'newsimg' type="text" class="form-control">
-                </div>
-              </div>
-              <div class = 'col-md-12'>
-                <h6>newsimg Image ( 1600*434 )</h6>
-                <div class="custom-file form-group bmd-form-group">
-                  <input type="file" class="custom-file-input" id="customFile" name="file">
-                  <label class="custom-file-label" for="customFile">Choose file</label>
-                </div>
+          <div classd="row">
+            <!-- Title -->
+            <div class="col-md-12">
+              <div class="form-group bmd-form-group">
+                <label class="bmd-label-static">Newsletter Image Name</label>
+                <input name = 'newsimg' id = 'newsimg' type="text" class="form-control" />
               </div>
             </div>
-          </form>
+            <!-- Background Image -->
+            <div class="col-md-12 mb-5">
+              <h6>Background Image ( 1600*434 )</h6>
+              <div class="custom-file form-group bmd-form-group">
+                <input type="file" class="custom-file-input" id="customFile" name="file" />
+                <label class="custom-file-label" for="customFile">Choose file</label>
+              </div>
+              <small id="backgroundImageSize" class="form-text" style="display:none;"></small>
+            </div>
+          </div>
         </div>
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary newsimgeditsubmitbtn" data-dismiss="modal">Done</button>
+          <button type="button" class="btn btn-primary" id="newsimgeditsubmitbtn">Done</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
-  </div>
+</div>
 
   <script>
     $(document).ready(function() {
@@ -384,15 +415,14 @@
             },
             { data: 'id',
                 render: function (data, type, row) {
-                    return `
-                    <div idkey="${row.id}">
-                    <span class="btn btn-icon btn-sm btn-light-primary newsimgbtn" imgid="${row.img}"><i class="fas fa-image"></i></span>
-                    <span class="btn btn-icon btn-sm btn-light-primary sendsmsbtn"><i class="fa fa-mobile"></i></span>
-                    <span class="btn btn-icon btn-sm btn-light-primary sendemailbtn"><i class="fa fa-envelope"></i></span>
-                    <a href="<?php echo base_url() ?>local/newsletter/viewrenewsletter?id=${row.id}" target="_blank"><span class="btn btn-icon btn-sm btn-light-warning newslettereditbtn"><i class="fa fa-eye"></i></span></a>
-                    <span class="btn btn-icon btn-sm btn-light-danger  newsletterdeletebtn"><i class="fas fa-trash"></i></span>
-                    </div>
-                    `
+                    return `<div idkey="${row.id}">
+                              <span class="btn btn-icon btn-sm btn-light-primary metaimgbtn"><i class="fas fa-upload"></i></span>
+                              <span class="btn btn-icon btn-sm btn-light-primary newsimgbtn" imgid="${row.img}"><i class="fas fa-image"></i></span>
+                              <span class="btn btn-icon btn-sm btn-light-primary sendsmsbtn"><i class="fa fa-mobile"></i></span>
+                              <span class="btn btn-icon btn-sm btn-light-primary sendemailbtn"><i class="fa fa-envelope"></i></span>
+                              <a href="<?php echo base_url() ?>local/newsletter/viewrenewsletter?id=${row.id}" target="_blank"><span class="btn btn-icon btn-sm btn-light-warning newslettereditbtn"><i class="fa fa-eye"></i></span></a>
+                              <span class="btn btn-icon btn-sm btn-light-danger  newsletterdeletebtn"><i class="fas fa-trash"></i></span>
+                            </div>`
                 } 
             }
         ]
@@ -689,6 +719,112 @@
 
       $(".newsimgeditsubmitbtn").click(function() {
         $("#updatenewsimg").submit()
+      })
+
+      $(document).on("click", ".metaimgbtn", function () {
+        $("#chosen_newsletter_id").val($(this).parent().attr("idkey"))
+        // Reset form
+        $("#metaFile").val('')
+        $(".custom-file-label").html('Choose file')
+        $("#metaImageSize").hide()
+        $("#metaimag-upload-modal").modal("show")
+      })
+
+      // Display filename and image size when meta image file is selected
+      $("#metaFile").on("change", function() {
+        var fileName = $(this).val().split("\\").pop()
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName)
+        
+        var file = this.files[0]
+        if (file) {
+          const imgObj = new Image()
+          const objectURL = URL.createObjectURL(file)
+          
+          imgObj.onload = function() {
+            var sizeText = "Image size: " + imgObj.width + " x " + imgObj.height
+            if (imgObj.width <= 640 && imgObj.height <= 640) {
+              $("#metaImageSize").removeClass("text-danger").addClass("text-success").text(sizeText + " ✓").show()
+            } else {
+              $("#metaImageSize").removeClass("text-success").addClass("text-danger").text(sizeText + " (Required: 640 x 640 or less)").show()
+            }
+            URL.revokeObjectURL(objectURL)
+          }
+          
+          imgObj.onerror = function() {
+            $("#metaImageSize").hide()
+            URL.revokeObjectURL(objectURL)
+          }
+          
+          imgObj.src = objectURL
+        } else {
+          $("#metaImageSize").hide()
+        }
+      })
+
+      $("#metaImageSubmitBtn").click(function () {
+        var metaFile = $("#metaFile")[0].files[0]
+        var newsletterId = $("#chosen_newsletter_id").val()
+        
+        if (!newsletterId) {
+          toastr.error('Please select a newsletter first!')
+          return
+        }
+        
+        if (!metaFile) {
+          toastr.error('Please select an image file!')
+          return
+        }
+        
+        // Validate image size
+        const imgObj = new Image()
+        const objectURL = URL.createObjectURL(metaFile)
+        
+        imgObj.onload = function() {
+          if (imgObj.width > 640 || imgObj.height > 640) {
+            var sizeText = "Image size: " + imgObj.width + " x " + imgObj.height
+            $("#metaImageSize").removeClass("text-success").addClass("text-danger").text(sizeText + " (Required: 640 x 640 or less)").show()
+            toastr.error('Meta Image must be 640 x 640 pixels or less. Current size: ' + imgObj.width + ' x ' + imgObj.height)
+            URL.revokeObjectURL(objectURL)
+            return
+          }
+          
+          // Image size is valid, proceed with upload
+          var formData = new FormData()
+          formData.append("file", metaFile)
+          formData.append("newsletter_id", newsletterId)
+          
+          $.ajax({
+            url: "<?php echo base_url() ?>local/Newsletter/uploadMetaImage",
+            method: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+              if(data == "ok") {
+                toastr.success('Meta image uploaded successfully!')
+                $("#metaimag-upload-modal").modal('hide')
+                // Reset form
+                $("#metaFile").val('')
+                $(".custom-file-label").html('Choose file')
+                $("#metaImageSize").hide()
+              } else {
+                toastr.error('Upload failed!')
+              }
+            },
+            error: function() {
+              toastr.error('An error occurred on the server!')
+            }
+          })
+          
+          URL.revokeObjectURL(objectURL)
+        }
+        
+        imgObj.onerror = function() {
+          toastr.error('Failed to load image file!')
+          URL.revokeObjectURL(objectURL)
+        }
+        
+        imgObj.src = objectURL
       })
     })
   </script>

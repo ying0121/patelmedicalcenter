@@ -32,27 +32,28 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form id = "updatenewsimg" action="<?php echo base_url('local/Newsletter/updateNewsletterImage'); ?>" method="post" enctype="multipart/form-data">
-                    <div class = "row">
-                        <div class = 'col-md-12'>
-                            <div class="form-group bmd-form-group">
-                                <label class="bmd-label-static">Newsletter Image Name</label>
-                                <input name = 'newsimg' id = 'newsimg' type="text" class="form-control">
-                            </div>
-                        </div>
-                        <div class = 'col-md-12'>
-                            <h6>newsimg Image ( 1600*434 )</h6>
-                            <div class="custom-file form-group bmd-form-group">
-                                <input type="file" class="custom-file-input" id="customFile" name="file">
-                                <label class="custom-file-label" for="customFile">Choose file</label>
-                            </div>
+                <div classd="row">
+                    <!-- Title -->
+                    <div class="col-md-12">
+                        <div class="form-group bmd-form-group">
+                            <label class="bmd-label-static">Newsletter Image Name</label>
+                            <input name = 'newsimg' id = 'newsimg' type="text" class="form-control" />
                         </div>
                     </div>
-                </form>
+                    <!-- Background Image -->
+                    <div class="col-md-12 mb-5">
+                        <h6>Background Image ( 1600*434 )</h6>
+                        <div class="custom-file form-group bmd-form-group">
+                            <input type="file" class="custom-file-input" id="customFile" name="file" />
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                        <small id="backgroundImageSize" class="form-text" style="display:none;"></small>
+                    </div>
+                </div>
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary newsimgeditsubmitbtn" data-dismiss="modal">Done</button>
+                <button type="button" class="btn btn-primary" id="newsimgeditsubmitbtn">Done</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -81,16 +82,16 @@
                 {
                     data:'id',
                     render: function(data, type, row) {
-                        return `<div class="d-flex align-items-center" style="height:40px;">${row.id}</div>`
+                        return `<div class="d-flex align-items-center">${row.id}</div>`
                     }
                 },
                 {
                     data: 'img',
                     render:function(data, type, row){
                         if (row.img) {
-                            return `<img src="<?php echo base_url() ?>assets/images/newsimg/${row.img}" width="50" />`
+                            return `<img src="<?php echo base_url() ?>assets/images/newsimg/${row.img}" width="200" />`
                         } else {
-                            return `<img src="<?php echo base_url() ?>assets/images/newsimg/empty-img.jpg" width="50" />`
+                            return `<img src="<?php echo base_url() ?>assets/images/newsimg/empty-img.jpg" width="200" />`
                         }
                     }
                 },
@@ -108,7 +109,7 @@
                     data: 'id',
                     render: function (data, type, row) {
                         return `<div idkey="${row.id}">
-                                    <span class="deletebtn newsimgdeletebtn text-danger cursor-pointer"><i class="fa fa-trash"></i></span>
+                                    <span class="btn btn-icon btn-sm newsimgdeletebtn btn-light-danger"><i class="fa fa-trash"></i></span>
                                 </div>`
                     }
                 }
@@ -118,13 +119,42 @@
 
         $(document).on("click", ".newsimg_add", function() {
             $("#newsimg_edit_modal").modal('show')
+            // Reset form
+            $("#newsimg").val('')
+            $("#customFile").val('')
+            $("#metaFile").val('')
+            $(".custom-file-label").html('Choose file')
+            $("#backgroundImageSize").hide()
+            $("#metaImageSize").hide()
         })
 
-        $(".newsimgeditsubmitbtn").click(function() {
-            $("#updatenewsimg").submit()
+        // Display image size when file is selected
+        $("#customFile").on("change", function() {
+            var fileName = $(this).val().split("\\").pop()
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName)
+            
+            var file = this.files[0]
+            if (file) {
+                const imgObj = new Image()
+                const objectURL = URL.createObjectURL(file)
+                
+                imgObj.onload = function() {
+                    var sizeText = "Image size: " + imgObj.width + " x " + imgObj.height
+                    if (imgObj.width <= 1600 && imgObj.height <= 434) {
+                        $("#backgroundImageSize").removeClass("text-danger").addClass("text-success").text(sizeText + " ✓").show()
+                    } else {
+                        $("#backgroundImageSize").removeClass("text-success").addClass("text-danger").text(sizeText + " (Required: 1600 x 434 or less)").show()
+                    }
+                    URL.revokeObjectURL(objectURL)
+                }
+                
+                imgObj.src = objectURL
+            } else {
+                $("#backgroundImageSize").hide()
+            }
         })
 
-        $(document).on("click",".newsimgdeletebtn",function(){
+        $(document).on("click",".newsimgdeletebtn",function() {
             $("#chosen_newsimg_id").val($(this).parent().attr("idkey"))
             Swal.fire({
                 title: 'Are you sure?',
@@ -142,13 +172,113 @@
                         data: {id:$("#chosen_newsimg_id").val()},
                         dataType: "text",
                         success: function (data) {
-                            if(data = "ok") {
+                            if(data == "ok") {
+                                toastr.success('Deleted Successfully!')
                                 newsimgtable.ajax.reload()
+                            } else {
+                                toastr.error('Deleted Failed!')
                             }
+                        },
+                        error: function() {
+                            toastr.error('An error was occurred on the server!')
                         }
                     })
                 }
             })
+        })
+
+        $("#newsimgeditsubmitbtn").click(function() {
+            var backgroundFile = $("#customFile")[0].files[0]
+            var validationResults = {
+                background: { checked: !backgroundFile, valid: true, error: "" },
+            }
+            var submitted = false
+
+            // Function to check if all validations are complete
+            function checkAndSubmit() {
+                if (submitted) return // Prevent double submission
+                var allChecked = true
+                var hasErrors = false
+                var errorMessages = []
+
+                if (backgroundFile && !validationResults.background.checked) {
+                    allChecked = false
+                }
+
+                if (!allChecked) {
+                    return // Wait for all validations to complete
+                }
+
+                // Check if there are any validation errors
+                if (backgroundFile && !validationResults.background.valid) {
+                    hasErrors = true
+                    errorMessages.push(validationResults.background.error)
+                }
+
+                if (hasErrors) {
+                    toastr.error(errorMessages.join("\n"))
+                    return
+                }
+
+                submitted = true // Mark as submitted to prevent double submission
+
+                // All validations passed, proceed with submission
+                var formData = new FormData()
+                formData.append("newsimg", $("#newsimg").val())
+                if (backgroundFile) {
+                    formData.append("file", backgroundFile)
+                }
+
+                $.ajax({
+                    url: "<?php echo base_url() ?>local/Newsletter/updateNewsletterImage",
+                    method: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        if(data == "ok") {
+                            newsimgtable.ajax.reload()
+                            toastr.success('Uploaded Successfully!')
+                        } else {
+                            toastr.error('Upload Failed!')
+                        }
+                        $("#newsimg_edit_modal").modal('hide')
+                    },
+                    error: function() {
+                        toastr.error('An error was occurred on the server!')
+                    }
+                })
+            }
+
+            // Validate background image if file is selected
+            if (backgroundFile) {
+                const bgImgObj = new Image()
+                const bgObjectURL = URL.createObjectURL(backgroundFile)
+                
+                bgImgObj.onload = function() {
+                    if (bgImgObj.width > 1600 || bgImgObj.height > 434) {
+                        validationResults.background.valid = false
+                        validationResults.background.error = "Background Image must be 1600 x 434 pixels or less. Current size: " + bgImgObj.width + " x " + bgImgObj.height
+                    } else {
+                        validationResults.background.valid = true
+                    }
+                    validationResults.background.checked = true
+                    URL.revokeObjectURL(bgObjectURL)
+                    checkAndSubmit()
+                }
+                
+                bgImgObj.onerror = function() {
+                    validationResults.background.valid = false
+                    validationResults.background.error = "Failed to load background image"
+                    validationResults.background.checked = true
+                    URL.revokeObjectURL(bgObjectURL)
+                    checkAndSubmit()
+                }
+                
+                bgImgObj.src = bgObjectURL
+            }
+
+            checkAndSubmit()
         })
     })
 </script>

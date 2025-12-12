@@ -29,6 +29,15 @@ class Newsletter_model extends CI_Model
 
 		return $result;
 	}
+	function chosenNewsLetter($id)
+	{
+		$this->db->select('*');
+		$this->db->from('newsletterdata');
+		$this->db->where('id', $id);
+		$query = $this->db->get();
+		$result = $query->row_array();
+		return $result;
+	}
 	function addnewsletter($en_sub, $es_sub, $author, $date, $link)
 	{
 		$data = array(

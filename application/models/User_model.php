@@ -369,9 +369,9 @@ class User_model extends CI_Model
     function getchosennewsletter($id, $siteLang)
     {
         if ($siteLang == "en")
-            $this->db->select('newsletterdata.id,en_sub AS header,en_desc AS desc,author,published,newsletterimg.img');
+            $this->db->select('newsletterdata.id, en_sub AS header, en_desc AS desc, author, published, newsletterimg.img, newsletterdata.meta_img, newsletterdata.link');
         else
-            $this->db->select('newsletterdata.id,es_sub AS header,es_desc AS desc,author,published,newsletterimg.img');
+            $this->db->select('newsletterdata.id, es_sub AS header, es_desc AS desc, author, published, newsletterimg.img, newsletterdata.meta_img, newsletterdata.link');
         $this->db->from('newsletterdata');
         $this->db->join('newsletterimg', 'newsletterimg.id = newsletterdata.img', "left");
         $this->db->where("newsletterdata.id", $id);

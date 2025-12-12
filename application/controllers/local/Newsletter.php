@@ -136,6 +136,13 @@ class Newsletter extends CI_Controller
 	public function deletenewsletter()
 	{
 		$id = $this->input->post('id');
+
+		// get newsletter record to delete meta image if exists
+		$newsletter = $this->Newsletter_model->chosenNewsLetter($id);
+		if ($newsletter && !empty($newsletter['meta_img']) && file_exists('./assets/images/newsimg/' . $newsletter['meta_img'])) {
+			unlink('./assets/images/newsimg/' . $newsletter['meta_img']);
+		}
+
 		$result = $this->Newsletter_model->deletenewsletter($id);
 		if ($result)
 			echo "ok";
@@ -297,23 +304,39 @@ class Newsletter extends CI_Controller
     public function updateNewsletterImage()
 	{
 		$name = $this->input->post('newsimg');
-        $filename = generateRandomString(10);
-		$config['upload_path']          = './assets/images/newsimg/';
-		$config['allowed_types']        = 'gif|jpg|png';
-		$config['max_size']             = 20480000;
-		$config['max_width']            = 1024*5;
-		$config['max_height']           = 768*5;
-		$config['file_name'] 			= $filename;
-		$this->load->library('upload', $config);
-		if ( ! $this->upload->do_upload('file')) {
-			$error = array('error' => $this->upload->display_errors());
-			redirect('local/Setting', 'refresh');
-		} else {
-			$data = array('upload_data' => $this->upload->data());
-			$result = $this->Settings_model->updatenewsimg($name,$data['upload_data']['orig_name']);
-			if($result) {
-				redirect('local/newsletter', 'refresh');
+		$backgroundImg = null;
+
+		// Upload background image if provided
+		if (!empty($_FILES['file']['name'])) {
+			$filename = generateRandomString(10);
+			$config['upload_path']          = './assets/images/newsimg/';
+			$config['allowed_types']        = 'gif|jpg|png|jpeg';
+			$config['max_size']             = 20480000;
+			$config['max_width']            = 1600;
+			$config['max_height']           = 434;
+			$config['file_name'] 			= $filename;
+			$this->load->library('upload', $config);
+			
+			if (!$this->upload->do_upload('file')) {
+				$error = $this->upload->display_errors();
+				echo "failed";
+				return;
+			} else {
+				$upload_data = $this->upload->data();
+				$backgroundImg = $upload_data['file_name'];
 			}
+		}
+
+		// Save to database
+		$result = $this->Settings_model->updatenewsimg($name, $backgroundImg);
+		if($result) {
+			echo "ok";
+		} else {
+			// If database insert failed, delete uploaded files
+			if ($backgroundImg && file_exists('./assets/images/newsimg/' . $backgroundImg)) {
+				unlink('./assets/images/newsimg/' . $backgroundImg);
+			}
+			echo "failed";
 		}
 	}
 
@@ -321,13 +344,77 @@ class Newsletter extends CI_Controller
     {
         $id = $this->input->post('id');
 
-		$chosen = $this->Newsletter_model->chooseNewsletterImage($id);
-        if ($chosen['img'])
-            unlink($_SERVER["DOCUMENT_ROOT"] . "/assets/images/newsimg/" . $chosen['img']);
-
-        $result = $this->Settings_model->deletenewsimg($id);
-        if($result){
-            echo "ok";
-        }
+		$chosen = $this->Settings_model->getnewsimgbyid($id);
+		if ($chosen) {
+			// Delete background image file if it exists
+			if (!empty($chosen['img']) && file_exists('./assets/images/newsimg/' . $chosen['img'])) {
+				unlink('./assets/images/newsimg/' . $chosen['img']);
+			}
+			
+			// Delete database record
+			$result = $this->Settings_model->deletenewsimg($id);
+			if($result){
+				echo "ok";
+			} else {
+				echo "failed";
+			}
+		} else {
+			echo "failed";
+		}
     }
+
+	public function uploadMetaImage()
+	{
+		$newsletter_id = $this->input->post('newsletter_id');
+		
+		if (empty($newsletter_id)) {
+			echo "failed";
+			return;
+		}
+
+		// Get the newsletter record to find the associated newsletterimg id
+		$newsletter = $this->Newsletter_model->chosenNewsLetter($newsletter_id);
+		if (!$newsletter) {
+			echo "failed";
+			return;
+		}
+
+		$metaImg = null;
+
+		// Upload meta image if provided
+		if (!empty($_FILES['file']['name'])) {
+			$filename = generateRandomString(10);
+			$config['upload_path']          = './assets/images/newsimg/';
+			$config['allowed_types']        = 'gif|jpg|png|jpeg';
+			$config['max_size']             = 20480000;
+			$config['max_width']            = 640;
+			$config['max_height']           = 640;
+			$config['file_name'] 			= $filename;
+			$this->load->library('upload', $config);
+			
+			if (!$this->upload->do_upload('file')) {
+				$error = $this->upload->display_errors();
+				echo "failed";
+				return;
+			} else {
+				$upload_data = $this->upload->data();
+				$metaImg = $upload_data['file_name'];
+			}
+		} else {
+			echo "failed";
+			return;
+		}
+
+		if (!empty($newsletter['meta_img']) && file_exists('./assets/images/newsimg/' . $newsletter['meta_img'])) {
+			unlink('./assets/images/newsimg/' . $newsletter['meta_img']);
+		}
+
+		// Update the newsletterimg record with the new meta image
+		$result = $this->Settings_model->updateMetaImage($metaImg, $newsletter_id);
+		if($result) {
+			echo "ok";
+		} else {
+			echo "failed";
+		}
+	}
 }

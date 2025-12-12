@@ -12,13 +12,13 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?php echo $meta['facebook_title'] ?>">
     <meta property="og:description" content="<?php echo $meta['facebook_desc'] ?>">
-    <meta property="og:image" content="<?php echo base_url() ?>assets/images/facebook_meta.jpg">
+    <meta property="og:image" content="<?php echo base_url() ?>assets/images/<?php echo $result['meta_img'] ? $result['meta_img'] : 'facebook_meta.jpg' ?>">
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:domain" content="conecxo.com">
     <meta name="twitter:title" content="<?php echo $meta['twitter_title'] ?>">
     <meta name="twitter:description" content="<?php echo $meta['twitter_desc'] ?>">
-    <meta name="twitter:image" content="<?php echo base_url() ?>assets/images/twitter_meta.jpg">
+    <meta name="twitter:image" content="<?php echo base_url() ?>assets/images/<?php echo $result['meta_img'] ? $result['meta_img'] : 'twitter_meta.jpg' ?>">
 
     <link rel="icon" href="<?php echo base_url() ?>assets/images/favicon.png" sizes="32x32" />
 

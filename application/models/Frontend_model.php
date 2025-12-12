@@ -54,13 +54,15 @@ class Frontend_model extends CI_Model
         $this->db->where('page', $page);
         $this->db->where('position', $position);
         $this->db->where('status', 1);
-        $this->db->order_by('page', 'asc');
         $this->db->order_by('id', 'asc');
         $query = $this->db->get();
-        $table_data = $query->result_array();
-        for ($i = 0; $i < count($table_data); $i++)
-            $data[$i] = $table_data[$i];
-        return $data;
+        $result = $query->result_array();
+        
+        if ($result === false || empty($result)) {
+            return array();
+        }
+        
+        return $result;
     }
     function getPageDocuments($siteLang, $page)
     {

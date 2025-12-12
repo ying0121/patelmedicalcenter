@@ -314,16 +314,39 @@ class Settings_model extends CI_Model
 		$result = $query->result_array();
 		return $result;
 	}
-	function updatenewsimg($name, $img)
+	function getnewsimgbyid($id)
+	{
+		$this->db->select('*');
+		$this->db->from('newsletterimg');
+		$this->db->where('id', $id);
+		$query = $this->db->get();
+		$result = $query->row_array();
+		return $result;
+	}
+	function updatenewsimg($name, $img = null)
 	{
 		$data = array(
-			'img' => $img,
 			'name' => $name,
 			'status' => 1,
 		);
+		
+		if ($img !== null) {
+			$data['img'] = $img;
+		}
+		
+		
 		$result = $this->db->insert('newsletterimg', $data);
 		return $result;
 	}
+
+	function updateMetaImage($name, $id) {
+		$data = array(
+			'meta_img' => $name,
+		);
+		$result = $this->db->update('newsletterdata', $data, 'id=' . $id);
+		return $result;
+	}
+
 	function deletenewsimg($id)
 	{
 		$this->db->where('id', $id);

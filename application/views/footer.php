@@ -89,7 +89,7 @@
                     <ul class="list-group list-group-light">
                         <li class="list-group-item px-2 border-0 py-lg-3 py-1 d-flex justify-content-start align-items-center gap-2">
                             <div><i class="fas fa-map-marker-alt flat-icon-footer text-success fs-4"></i></div>
-                            <div><a href="#"> <?php echo $contact_info['address'] ?>, <?php echo $contact_info['city'] ?>, <?php echo $contact_info['ztate'] ?> <?php echo $contact_info['zip'] ?></a></div>
+                            <div><a href="#"> <?php echo $contact_info['address'] ?>, <?php echo $contact_info['city'] ?>, <?php echo $contact_info['state'] ?> <?php echo $contact_info['zip'] ?></a></div>
                         </li>
                         <li class="list-group-item px-2 border-0 py-lg-3 py-1 d-flex justify-content-start align-items-center gap-2">
                             <div><i class="fa fa-phone-alt flat-icon-footer text-success fs-4"></i></div>
